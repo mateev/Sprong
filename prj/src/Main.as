@@ -9,6 +9,7 @@ package
 	import overlay.SideMenu.capGraphic;
 	import ramps.RampContentClass;
 	
+	//	SPAGHETTICODE!!!!1111111SHIFT+ELEVEN
 	public class Main extends Sprite 
 	{		
 		private var test:LevelOBJClass;
@@ -91,7 +92,7 @@ package
 		public function showMenus():void
 		{
 			menusAndScreens.visible = true;
-		}
+		}	
 		
 		// Generates an ID for a menu, which is actualy it's cap color and the cannon that it will correspond to
 		// based on http://www.nunomira.com/blog/2009/11/convert-decimal-to-hex-and-back/
@@ -135,6 +136,7 @@ package
 			return Math.floor( begin + ( Math.random() * ( end - begin + 1 ) ));
 		}
 		
+		//	TODO: This doesn't work for values in [0;1)
 		public static function RandomNumber(begin:Number, end:Number):Number
 		{
 			if (begin > end)

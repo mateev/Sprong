@@ -16,10 +16,6 @@ package ramps
 			
 		}
 		
-		public function get Center():Point
-		{
-			return new Point(x, y);
-		}
 				
 	}
 
