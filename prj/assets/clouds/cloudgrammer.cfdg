@@ -1,0 +1,25 @@
+startshape CloudStart
+
+rule CloudStart{
+   CIRCLE{s 1.0 y 0.55 x -0.05 b 0.3}
+   CIRCLE{s 1.0 y 0.5 b 0.7}
+   Cloud{x 0.5}
+}
+rule Cloud {HollowCircle{} Cloud {x 0.7}}
+rule Cloud 3 {Cloud {s 1.1}}
+rule Cloud 3 {Cloud {s 0.91}}
+rule Cloud 0.1 {CloudEnd{}}
+
+rule CloudEnd{
+   CIRCLE{s 1.0 y 0.55 x -0.25 b 0.3}
+   CIRCLE{s 1.0 y 0.5 x -0.3 b 0.7}
+}
+
+rule HollowCircle {
+   CIRCLE {s 1.1 y 1 b 0.3}
+   CIRCLE {s 1.0 y 1 b 0.7}
+   CIRCLE {s 1.1 y 0.9 b 0.7}
+   SQUARE {s 1.0 y 0.5 b 0.7}
+   CIRCLE {s 1.0 0.3 b 0.9}
+   CIRCLE {y 0.01 s 1.0 0.3 b 0.7}
+}
