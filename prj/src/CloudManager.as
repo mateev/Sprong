@@ -82,13 +82,17 @@ package
 		//	This controls cloud movement
 		private function onTick(e:Event):void
 		{
-			//	The following goes over all clouds and makes them move slightly
+			//	The following goes over all clouds and makes them move in a cloudy fashion ...
 			for each (var cloud:Bitmap in clouds)
 			{
-				cloud.x -= 0.1;
+				//	...	this causes the perception that they move at different rates ...
+				cloud.x -= (0.1+Math.random()/10);
 
-				//	... this makes them wobble up and down slightly
-				cloud.y += Main.RandomSign() * Math.random()/10;	
+				//	... this makes them wobble up and down slightly ...
+				cloud.y += Main.RandomSign() * Math.random() / 10;
+				
+				//	... and this makes them look more organic by slightly tilting left and right ...
+				cloud.rotation = Main.RandomSign()*Math.random()/10;
 			}
 		}
 		
@@ -143,17 +147,20 @@ package
 				case 3:
 					newCloudAppearance = new CloudClass4();
 					break;
-			}				
+			}
 			
-			//	If there hasn't been any real input a random location will be chosen;
-			//  Otherwise the x and y values of the chosen bitmap will be set as specified;
-			newCloudAppearance.x = inputX ==-1 ? Main.RandomNumber(0, managerWidth) : inputX;
-			newCloudAppearance.y = inputY ==-1 ? Main.RandomNumber(0, managerHeight) : inputY;
+			//	This causes slight transparency
+			newCloudAppearance.alpha = Main.RandomNumber(0.9, 1);			
 			
 			//	Scale factor is applied
 			newCloudAppearance.scaleX = scaleFactor;
-			newCloudAppearance.scaleY = scaleFactor;
-				
+			newCloudAppearance.scaleY = scaleFactor;			
+			
+			//	If there hasn't been any real input a random location will be chosen;
+			//  Otherwise the x and y values of the chosen bitmap will be set as specified;
+			newCloudAppearance.x = inputX ==-1 ? Main.RandomNumber(0, managerWidth) + newCloudAppearance.width : inputX;
+			newCloudAppearance.y = inputY ==-1 ? Main.RandomNumber(0, managerHeight) : inputY;
+							
 			//	Smoothing is applied to avoid jagged edges
 			newCloudAppearance.smoothing = true;
 			

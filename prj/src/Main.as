@@ -137,17 +137,27 @@ package
 			return Math.floor( begin + ( Math.random() * ( end - begin + 1 ) ));
 		}
 		
-		//	TODO: This doesn't work for values in [0;1)
+		//	This generates a random number in a range
 		public static function RandomNumber(begin:Number, end:Number):Number
 		{
+			var generatedNumber:Number;
+			
 			if (begin > end)
 			{
+				//	XOR Swap fails for non-integers in AS3, so...
 				var swapValue:Number = begin;
 				begin = end;
 				end = begin;
 			}
 			
-			return RandomInteger(begin, end) + RandomSign() * Math.random();
+			do
+			{
+				generatedNumber = RandomInteger(Math.floor(begin), Math.ceil(end)) + RandomSign() * Math.random();
+			}
+			while (generatedNumber<begin || generatedNumber>end);
+
+			
+			return generatedNumber;
 		}
 		
 		public static function RandomSign():int
