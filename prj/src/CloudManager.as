@@ -7,6 +7,11 @@ package
 	//	Todo: Make some clouds appear mirrored along y-axis
 	public class CloudManager extends Sprite 
 	{
+		/*
+		 *	Graphics done in Context Free
+		 *	http://www.contextfreeart.org
+		 */
+		
 		[Embed(source = "../assets/clouds/cloud1.png")]
 		private var CloudClass1:Class;
 

@@ -10,6 +10,7 @@ package
 	public class CartoonyLine extends Sprite 
 	{
 		// Special thanks to: http://www.republicofcode.com/tutorials/flash/as3drawvectors/
+		// Inspired from: http://stackoverflow.com/questions/2090319/how-to-set-linestyle-to-solid-dashed-dotted-ragged-stippled-in-flash
 		private var dashL:Number;
 		
 		private var beginning:Point;
