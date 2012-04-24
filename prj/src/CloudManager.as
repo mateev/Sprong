@@ -7,8 +7,7 @@ package
 	
 	//	Todo: Make some clouds appear mirrored along y-axis
 	public class CloudManager extends Sprite 
-	{
-		
+	{		
 		private var managerWidth:Number;
 		private var managerHeight:Number;
 		

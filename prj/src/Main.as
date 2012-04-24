@@ -33,6 +33,8 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 
+			var assets:AssetsManager = new AssetsManager();
+			
 			test = new LevelOBJClass();
 
 			var man:CloudManager = CloudManager.CloudManagerObject(test.width, test.height);

@@ -25,29 +25,51 @@ package
 		[Embed(source = "../assets/clouds/cloud4.png")]
 		public static var CloudClass4:Class;		
 		
-		public static const CLOUDS_COUNT:int = 4;
+		//	This object maps an asset class with a number, indicating how many variants of that asset class there are
+		private static var assetsCount:Object;
 		
-		public function AssetsManager() {}
-
-		//	This chooses one of the possible bitmaps
-		public static function get Cloud():*
+		//	The constructor initializes the assets counters
+		public function AssetsManager() 
 		{
-			//	This chooses the cloud asset by random
-			var cloudClass:Class;
+			AssetsManager.assetsCount = new Object();			
+			AssetsManager.assetsCount["CloudClass"] = 4;		
 			
+		}
+
+		//	This returns how many variants of an asset class exist in the assets library, if there is no record it is assumed that only one variant exists
+		public static function AssetsCount(assetType:String):int
+		{
+			if (!assetsCount.hasOwnProperty(assetType))
+				return 1;
+				
+			return assetsCount[assetType];
+		}
+
+		//	This returns a random variant of an asset class
+		//	If the asset class hasn't been properly implemented yet, an error will be reported and a placeholder will be chosen
+		private static function Asset(assetType:String):*
+		{
+			var returnedAsset:Class;
+
 			try
 			{
-				cloudClass = Class(getDefinitionByName("AssetsManager_CloudClass" + Main.RandomInteger(1, CLOUDS_COUNT)));
+				returnedAsset = Class(getDefinitionByName("AssetsManager_" + assetType + Main.RandomInteger(1, AssetsManager.AssetsCount(assetType))));
 			}
 			catch (error:ReferenceError)
 			{
-				cloudClass = AssetErrorClass;
+				returnedAsset = AssetErrorClass;
 				trace(error);
 			}
 			finally
 			{
-				return new cloudClass();
-			}
+				return new returnedAsset;
+			}			
+		}
+		
+		//	This returns a Cloud bitmap
+		public static function get Cloud():*
+		{
+			return Asset("CloudClass");
 		}
 	}
 }
