@@ -73,10 +73,10 @@ package
 				cloud.x -= (0.1+Math.random()/10);
 
 				//	... this makes them wobble up and down slightly ...
-				cloud.y += Main.RandomSign() * Math.random() / 10;
+				cloud.y += ExtraMath.RandomSign() * Math.random() / 10;
 				
 				//	... and this makes them look more organic by slightly tilting left and right ...
-				cloud.rotation = Main.RandomSign()*Math.random()/10;
+				cloud.rotation = ExtraMath.RandomSign()*Math.random()/10;
 			}
 		}
 		
@@ -93,7 +93,7 @@ package
 				if (clouds[index].x <= 0 || clouds[index].y <=0 || clouds[index].y>=managerHeight)
 				{					
 					//	... a new cloud is about to be added at the opposite edge of the sky ...
-					newCloud = CloudSelector(managerWidth, Main.RandomNumber(0, managerHeight));
+					newCloud = CloudSelector(managerWidth, ExtraMath.RandomNumber(0, managerHeight));
 					
 					//	... the old cloud will be removed from the sky ...
 					removeChild(clouds[index]);
@@ -120,7 +120,7 @@ package
 			newCloudAppearance = AssetsManager.Cloud;
 
 			//	This causes slight transparency
-			newCloudAppearance.alpha = Main.RandomNumber(0.9, 1);			
+			newCloudAppearance.alpha = ExtraMath.RandomNumber(0.9, 1);			
 			
 			//	Scale factor is applied
 			newCloudAppearance.scaleX = scaleFactor;
@@ -128,8 +128,8 @@ package
 			
 			//	If there hasn't been any real input a random location will be chosen;
 			//  Otherwise the x and y values of the chosen bitmap will be set as specified;
-			newCloudAppearance.x = inputX ==-1 ? Main.RandomNumber(0, managerWidth) + newCloudAppearance.width : inputX;
-			newCloudAppearance.y = inputY ==-1 ? Main.RandomNumber(0, managerHeight) : inputY;
+			newCloudAppearance.x = inputX ==-1 ? ExtraMath.RandomNumber(0, managerWidth) + newCloudAppearance.width : inputX;
+			newCloudAppearance.y = inputY ==-1 ? ExtraMath.RandomNumber(0, managerHeight) : inputY;
 							
 			//	Smoothing is applied to avoid jagged edges
 			newCloudAppearance.smoothing = true;
@@ -149,7 +149,6 @@ package
 			
 			return manager;
 		}
-		
 	}
 
 }

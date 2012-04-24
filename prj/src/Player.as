@@ -21,8 +21,7 @@ package
 		public function Player() 
 		{
 			super();
-			
-			
+
 			collides = false;
 			
 			if (stage)	onStage();
@@ -33,13 +32,20 @@ package
 		
 		public function onStage(e:Event=null):void
 		{
+			removeEventListener(Event.ADDED_TO_STAGE,onStage);
+			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKey);
-			addEventListener(MouseEvent.MOUSE_OVER, onMouse);
+			addEventListener(MouseEvent.MOUSE_DOWN, onClick);
 		}
 		
-		private function onMouse(me:MouseEvent):void
+		private function onClick(me:MouseEvent):void
 		{
-			
+			delete this;
+		}
+		
+		private function remove():void
+		{
+			delete this;
 		}
 		
 		public function Collides(hit:*):void
@@ -54,7 +60,7 @@ package
 		}
 		
 		private function onTick(e:Event):void
-		{
+		{			
 			if (!collides)
 			{
 				y += 20;			

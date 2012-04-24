@@ -39,10 +39,7 @@ package
 		//	This returns how many variants of an asset class exist in the assets library, if there is no record it is assumed that only one variant exists
 		public static function AssetsCount(assetType:String):int
 		{
-			if (!assetsCount.hasOwnProperty(assetType))
-				return 1;
-				
-			return assetsCount[assetType];
+			return assetsCount.hasOwnProperty(assetType) ? assetsCount[assetType] : 1;
 		}
 
 		//	This returns a random variant of an asset class
@@ -53,7 +50,7 @@ package
 
 			try
 			{
-				returnedAsset = Class(getDefinitionByName("AssetsManager_" + assetType + Main.RandomInteger(1, AssetsManager.AssetsCount(assetType))));
+				returnedAsset = Class(getDefinitionByName("AssetsManager_" + assetType + ExtraMath.RandomInteger(1, AssetsManager.AssetsCount(assetType))));
 			}
 			catch (error:ReferenceError)
 			{
