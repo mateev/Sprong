@@ -3,26 +3,11 @@ package
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.text.engine.FontDescription;
 	
 	//	Todo: Make some clouds appear mirrored along y-axis
 	public class CloudManager extends Sprite 
 	{
-		/*
-		 *	Graphics done in Context Free
-		 *	http://www.contextfreeart.org
-		 */
-		
-		[Embed(source = "../assets/clouds/cloud1.png")]
-		private var CloudClass1:Class;
-
-		[Embed(source = "../assets/clouds/cloud2.png")]
-		private var CloudClass2:Class;
-
-		[Embed(source = "../assets/clouds/cloud3.png")]
-		private var CloudClass3:Class;
-
-		[Embed(source = "../assets/clouds/cloud4.png")]
-		private var CloudClass4:Class;
 		
 		private var managerWidth:Number;
 		private var managerHeight:Number;
@@ -131,24 +116,10 @@ package
 			
 			//	This variable holds how much will the bitmap be scaled
 			var scaleFactor:Number = 0.3;							
-			
-			//	This switch chooses one of the possible bitmaps and passes the value to the cloud appearance variable
-			switch(Main.RandomInteger(0, 3))						
-			{
-				case 0:
-					newCloudAppearance = new CloudClass1();
-					break;
-				case 1:
-					newCloudAppearance = new CloudClass2();
-					break;
-				case 2:
-					newCloudAppearance = new CloudClass3();
-					break;
-				case 3:
-					newCloudAppearance = new CloudClass4();
-					break;
-			}
-			
+		
+			// 	This gets a cloud bitmap from the assets manager
+			newCloudAppearance = AssetsManager.Cloud;
+
 			//	This causes slight transparency
 			newCloudAppearance.alpha = Main.RandomNumber(0.9, 1);			
 			
