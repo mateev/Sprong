@@ -10,6 +10,9 @@ package
 		 *	http://www.contextfreeart.org
 		 */
 		
+		[Embed(source = "../assets/asset_error.png")]
+		public static var AssetErrorClass:Class;	
+		
 		[Embed(source = "../assets/clouds/cloud1.png")]
 		public static var CloudClass1:Class;
 
@@ -30,10 +33,21 @@ package
 		public static function get Cloud():*
 		{
 			//	This chooses the cloud asset by random
-			var cloudClass:Class = Class(getDefinitionByName("AssetsManager_CloudClass" + Main.RandomInteger(1, CLOUDS_COUNT)));
+			var cloudClass:Class;
 			
-			return new cloudClass();
+			try
+			{
+				cloudClass = Class(getDefinitionByName("AssetsManager_CloudClass" + Main.RandomInteger(1, CLOUDS_COUNT)));
+			}
+			catch (error:ReferenceError)
+			{
+				cloudClass = AssetErrorClass;
+				trace(error);
+			}
+			finally
+			{
+				return new cloudClass();
+			}
 		}
 	}
-
 }
