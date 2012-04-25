@@ -14,6 +14,7 @@ package
 	import overlay.Slider.HorizontalSlider;
 	import overlay.Slider.VerticalSlider;
 	import overlay.Slider.SliderEvent;
+	import placeable.Trampoline;
 
 	
 	//	SPAGHETTICODE!!!!1111111SHIFT+ELEVEN
@@ -22,11 +23,15 @@ package
 		public static var currentLevel:Level;
 		public static var CannonIDs:Array = null;
 		
+		private var selectedType:Class;
+		
 		private var menusAndScreens:MenuContainer;
 		
 		public function Main():void 
 		{			
-			if (stage) init();			
+			selectedType = Trampoline;	//	ONLY FOR TESTING PURPOSES! INITIAL VALUE SHOULD BE NULL
+			
+			if (stage) init();						
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
@@ -59,8 +64,10 @@ package
 		{
 			var isMenuClick:Boolean = stage.getObjectsUnderPoint(new Point(mouseX, mouseY)).some(function(elem:*, index:*, array:*):Boolean { return elem is buttonGraphic; } );
 			
-			if(!isMenuClick)
+			if (!isMenuClick && selectedType)
+			{
 				currentLevel.place(new Point(mouseX, mouseY));
+			}
 		}
 		
 		//	TODO: Too many variables

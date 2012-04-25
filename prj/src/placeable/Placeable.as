@@ -10,13 +10,13 @@ package placeable
 		public var collides:Boolean;
 		protected var offset:Number;
 		
-		protected var ID:uint;
+		protected var ID:int;
 		
-		public function Placeable(inputID:uint=0) 
+		public function Placeable(inputID:int=-1) 
 		{
 			super();
 			
-			ID = inputID;
+			ID = inputID == -1 ? -ExtraMath.RandomInteger(1) : inputID;
 			
 			collides = false;			
 
@@ -27,6 +27,11 @@ package placeable
 		
 		public function onKey(ke:KeyboardEvent):void
 		{
+		}
+		
+		public function GetID():int
+		{
+			return ID;
 		}
 		
 		public function IsTrampoline():Boolean

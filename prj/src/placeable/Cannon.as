@@ -25,7 +25,7 @@ package placeable
 			super.onStage(e);
 			
 			graphics.beginFill(0x00FF00);
-			graphics.drawRect(0, 0, 100, 100);
+			graphics.drawRect(0, 0, 50, 50);
 			graphics.endFill();			
 		}
 	}

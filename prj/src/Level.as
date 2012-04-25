@@ -14,11 +14,13 @@ package
 	{
 		private var sky:CloudManager;
 		private var levelObject:LevelOBJClass;
-		private var pl:Trampoline;
-				
+
+		private var pl:Cannon;
+		
 		public function Level() 
 		{
-			if (stage) onStage();
+			
+			if (stage) onStage();		
 			else addEventListener(Event.ADDED_TO_STAGE, onStage);
 		}
 		
@@ -40,42 +42,51 @@ package
 		{
 			return (!sky.InSky(new Point(-location.x, -location.y)));
 		}
+
+		//	Returns the ramp with which the object collided
+		private function collideWithRamp(object:*):RampContentClass
+		{
+			if (object == null)
+				return null;
+			
+			var ramp:RampContentClass;
+
+			for (var index:int = 0; index < levelObject.numChildren; index++)
+			{
+				ramp = levelObject.getChildAt(index) as RampContentClass;
+				
+				if (ramp)
+					if (ramp.hitTestObject(object))
+						return ramp;
+			}			
+			
+			return null;
+		}
 		
 		private function onTick(event:Event):void
 		{
-			for (var index:int = 0; index < levelObject.numChildren; index++)
-			{
-				var child:RampContentClass = levelObject.getChildAt(index) as RampContentClass;
-				
-				if (pl && child)
-				{
-						if (child.hitTestObject(pl))
-						{
-							pl.Collides(child);
-						}
-				}
-			}
+			var rampCollisionObject:RampContentClass = collideWithRamp(pl);
+
+			if(rampCollisionObject)
+				pl.Collides(rampCollisionObject);
 		}
 		
-		public function place(location:Point):void
+		public function place(location:Point,id:int=-1):void
 		{
 			cannon(location);
 		}
+
 		
 		public function cannon(location:Point):void
 		{
 			if (!pl)
 			{
 				trace(mouseX, mouseY);
-				pl = new Trampoline();
+				pl = new Cannon(1);
 				pl.x = mouseX;
 				pl.y = mouseY;
 				
 				addChild(pl);
-			}
-			else
-			{
-				trace(pl.x, pl.y);
 			}
 		}
 	}
