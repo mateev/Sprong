@@ -17,8 +17,11 @@ package
 
 		private var pl:Cannon;
 		
+		private var trampolines:Vector.<Trampoline>;
+		
 		public function Level() 
 		{
+			trampolines = new Vector.<Trampoline>();
 			
 			if (stage) onStage();		
 			else addEventListener(Event.ADDED_TO_STAGE, onStage);
@@ -41,6 +44,18 @@ package
 		public function HasReachedEdge(location:Point):Boolean
 		{
 			return (!sky.InSky(new Point(-location.x, -location.y)));
+		}
+
+		
+		private function collideWithTrampoline(object:*):int
+		{
+			var collideIndex:int;
+
+			for (collideIndex = 0; collideIndex < trampolines.length; collideIndex++)
+				if (trampolines[collideIndex].hitTestObject(object))
+					return collideIndex;
+			
+			return -1;
 		}
 
 		//	Returns the ramp with which the object collided
