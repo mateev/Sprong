@@ -61,18 +61,32 @@ package overlay.Slider
 			return Point.interpolate(RightEndPoint, OtherEndPoint, 0.5);
 		}
 		
+		public function get ControlPoint():Point
+		{
+			var interpolatedPoint:Point = RandomThirdPoint;
+			
+			if (RightEndPoint.y == OtherEndPoint.y)
+				interpolatedPoint.y += ExtraMath.RandomNumber( 50, 75);
+			
+			if (RightEndPoint.x == OtherEndPoint.x)
+				interpolatedPoint.x += ExtraMath.RandomNumber( 50, 75);
+			
+			return interpolatedPoint;
+			
+		}
+		
 		protected function drawGraphics():void
 		{
 			if (endPoints.length < 2)
 				return;
 				
-			var thirdPoint:Point = RandomThirdPoint;
+			var controlPoint:Point = ControlPoint;
 			
 			graphics.lineStyle(4, 0x000000, 1); 
-			graphics.moveTo(RightEndPoint.x,RightEndPoint.y);
-			graphics.curveTo(thirdPoint.x - ExtraMath.RandomNumber(-100,-115), thirdPoint.y + ExtraMath.RandomNumber(-100,-115), OtherEndPoint.x, OtherEndPoint.y);
-			graphics.endFill();
-			
+			graphics.moveTo(RightEndPoint.x, RightEndPoint.y);
+			graphics.curveTo(controlPoint.x, controlPoint.y, OtherEndPoint.x, OtherEndPoint.y);
+//			graphics.curveTo(thirdPoint.x - ExtraMath.RandomNumber(-100,-115), thirdPoint.y + ExtraMath.RandomNumber(-100,-115), OtherEndPoint.x, OtherEndPoint.y);
+			graphics.endFill();			
 			
 			
 			graphics.beginFill(0x000000);

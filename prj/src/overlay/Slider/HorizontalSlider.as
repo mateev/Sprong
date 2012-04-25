@@ -19,7 +19,7 @@ package overlay.Slider
 			super.onStage(e);
 			
 			
-			endPoints.unshift(new Point(xOffsetValue, stage.stageHeight - xOffsetValue));
+			endPoints.unshift(new Point(xOffsetValue/2, stage.stageHeight - xOffsetValue));
 			
 			drawGraphics();
 		}
