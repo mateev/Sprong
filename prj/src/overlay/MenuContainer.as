@@ -14,9 +14,10 @@ package overlay
 		{
 			sideMenu = new VerticalMenu(100, Main.GeneratedCannonID);
 			topMenus = new Vector.<HorizontalMenu>();
+	
+			AddMenu(Main.GeneratedCannonID);
 			
-			AddMenu(Main.GeneratedCannonID);
-			AddMenu(Main.GeneratedCannonID);
+			addChild(sideMenu);
 		}
 		
 		public function AddMenu(generatedID:int):void

@@ -1,5 +1,6 @@
 package overlay.SideMenu 
 {
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	/**
 	 * ...
@@ -11,7 +12,19 @@ package overlay.SideMenu
 		public function HorizontalMenu(cornerOffset:Number, capColor:uint) 
 		{
 			super(cornerOffset, capColor);
+		}
+		
+		override public function onStage(ev:Event = null):void 
+		{
+			appearance = menuGraphic.MenuGraphic(inputCornerOffset, true);
+			logic = new menuLogic(inputCornerOffset, true);			
 			
+			addChild(appearance);
+
+			cap = buttonGraphic.CapButton(inputCornerOffset,true,ID);
+			addChild(cap);
+			
+			super.onStage(ev);
 		}
 		
 		override public function onClick(ev:MouseEvent=null):void 

@@ -32,7 +32,8 @@ package overlay.SideMenu
 			status = 0;
 
 			size = 0;
-			
+
+			/*
 			appearance = menuGraphic.MenuGraphic(cornerOffset, true);
 			logic = new menuLogic(cornerOffset, true);			
 			
@@ -40,8 +41,15 @@ package overlay.SideMenu
 
 			cap = buttonGraphic.CapButton(cornerOffset,true,capColor);
 			addChild(cap);
+			*/
 			
-			forceClick();
+			if (stage) onStage();
+			else addEventListener(Event.ADDED_TO_STAGE, onStage);
+		}
+		
+		public function onStage(ev:Event = null):void 
+		{ 
+			forceClick();		
 			
 			addEventListener(MouseEvent.CLICK, onClick);
 			addEventListener(Event.ENTER_FRAME, onTick);
@@ -50,7 +58,7 @@ package overlay.SideMenu
 		
 		public function onClick(ev:MouseEvent=null):void{}
 		
-		public function forceClick():void
+		private function forceClick():void
 		{
 			logic.Switch();
 			expandedSwitch();
@@ -68,7 +76,7 @@ package overlay.SideMenu
 		}
 		
 		public function move(isExpanding:Boolean):void {}
-		public function IsRetracted():Boolean { return true; }
+		public function IsRetracted():Boolean { return false; }
 		public function IsExpanded():Boolean { return !IsRetracted(); }
 		
 		
