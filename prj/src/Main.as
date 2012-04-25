@@ -7,7 +7,9 @@ package
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import flash.text.engine.ElementFormat;
 	import overlay.MenuContainer;
+	import overlay.SideMenu.buttonGraphic;
 	import overlay.SideMenu.capGraphic;
 	import overlay.Slider.HorizontalSlider;
 	import overlay.Slider.VerticalSlider;
@@ -41,7 +43,7 @@ package
 			initMenus();
 			addChild(menusAndScreens);
 
-			//showMenus();
+			showMenus();
 			var sltest:HorizontalSlider = new HorizontalSlider();
 			var sltest2:VerticalSlider = new VerticalSlider();
 			
@@ -55,9 +57,13 @@ package
 		
 		private function onClick(me:MouseEvent):void
 		{
-			currentLevel.cannon(new Point(mouseX, mouseY));
+			var isMenuClick:Boolean = stage.getObjectsUnderPoint(new Point(mouseX, mouseY)).some(function(elem:*, index:*, array:*):Boolean { return elem is buttonGraphic; } );
+			
+			if(!isMenuClick)
+				currentLevel.cannon(new Point(mouseX, mouseY));
 		}
 		
+		//	TODO: Too many variables
 		private function onSlide(slide:SliderEvent):void
 		{	
 			var levelX:int = currentLevel.x;

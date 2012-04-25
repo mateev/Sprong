@@ -41,10 +41,6 @@ package
 		
 		private function onTick(event:Event):void
 		{
-				
-			trace(x, y);
-				
-			
 			for (var index:int = 0; index < levelObject.numChildren; index++)
 			{
 				var child:RampContentClass = levelObject.getChildAt(index) as RampContentClass;
