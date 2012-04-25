@@ -60,7 +60,7 @@ package
 			var isMenuClick:Boolean = stage.getObjectsUnderPoint(new Point(mouseX, mouseY)).some(function(elem:*, index:*, array:*):Boolean { return elem is buttonGraphic; } );
 			
 			if(!isMenuClick)
-				currentLevel.cannon(new Point(mouseX, mouseY));
+				currentLevel.place(new Point(mouseX, mouseY));
 		}
 		
 		//	TODO: Too many variables

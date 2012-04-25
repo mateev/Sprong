@@ -25,8 +25,7 @@ package overlay.SideMenu
 			
 			buttons.push(newButton);
 			
-			addChild(newButton);
-			
+			addChild(newButton);			
 		}
 		
 		public static function MenuGraphic(offset:Number, horizontal:Boolean = true, capColor:uint = 0x00ff00):menuGraphic

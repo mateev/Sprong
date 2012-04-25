@@ -5,14 +5,17 @@ package
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import placeable.Cannon;
+	import placeable.Trampoline;
 	import ramps.RampContentClass;
+	import flash.utils.Dictionary;
 
 	public class Level extends Sprite 
 	{
 		private var sky:CloudManager;
 		private var levelObject:LevelOBJClass;
-		private var pl:Cannon;
-		
+		private var pl:Trampoline;
+				
 		public function Level() 
 		{
 			if (stage) onStage();
@@ -31,7 +34,6 @@ package
 			addChild(levelObject);
 			
 			addEventListener(Event.ENTER_FRAME, onTick);
-//			addEventListener(Event.EXIT_FRAME, onTock);
 		}
 		
 		public function HasReachedEdge(location:Point):Boolean
@@ -55,12 +57,17 @@ package
 			}
 		}
 		
+		public function place(location:Point):void
+		{
+			cannon(location);
+		}
+		
 		public function cannon(location:Point):void
 		{
 			if (!pl)
 			{
 				trace(mouseX, mouseY);
-				pl = new Cannon();
+				pl = new Trampoline();
 				pl.x = mouseX;
 				pl.y = mouseY;
 				

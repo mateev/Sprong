@@ -125,11 +125,14 @@ package
 		//	This function selects a sun bitmap and positions it on the level
 		private function SunSelector():Bitmap
 		{
+			//	Fetch the sun asset from the manager
 			var sun:Bitmap = AssetsManager.Sun;
 			
+			//	The first line centers the bitmap and chooses whether to offset it's location by a little bit or not
 			sun.x = managerWidth/2 - (ExtraMath.RandomSign() > 0 ? ExtraMath.RandomNumber(managerWidth/4,managerWidth/3) : 0);
 			sun.y = managerHeight/2 - ExtraMath.RandomNumber(managerHeight/4,managerHeight/3);
-			
+
+			//	Smoothing is applied to avoid jagged edges
 			sun.smoothing = true;
 			
 			return sun;			
