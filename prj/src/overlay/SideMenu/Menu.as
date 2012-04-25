@@ -11,36 +11,34 @@ package overlay.SideMenu
 		
 		private var size:int;
 
-		private var cap:buttonGraphic;
-		private var appearance:menuGraphic;
-
-		private var logic:menuLogic;
-		private var isHorizontal:Boolean;
+		protected var cap:buttonGraphic;
+		protected var appearance:menuGraphic;
 		
-		private var status:uint;	// 0 - static, 1 - expanding, 2 - retracting
+		protected var logic:menuLogic;
+		//private var isHorizontal:Boolean;
 		
-		private var ID:uint;
+		protected var status:uint;	// 0 - static, 1 - expanding, 2 - retracting
 		
-		private var inputCornerOffset:Number;
+		protected var ID:uint;
 		
-		public function Menu(cornerOffset:Number,capColor:uint,horizontal:Boolean = true) 
+		protected var inputCornerOffset:Number;
+		
+		public function Menu(cornerOffset:Number,capColor:uint) 
 		{
 			inputCornerOffset = cornerOffset;
 			
 			ID = capColor;
 			
 			status = 0;
-			
-			isHorizontal = horizontal;
 
 			size = 0;
 			
-			appearance = menuGraphic.MenuGraphic(cornerOffset, isHorizontal);
-			logic = new menuLogic(cornerOffset, isHorizontal);			
+			appearance = menuGraphic.MenuGraphic(cornerOffset, true);
+			logic = new menuLogic(cornerOffset, true);			
 			
 			addChild(appearance);
 
-			cap = buttonGraphic.CapButton(cornerOffset,isHorizontal,capColor);
+			cap = buttonGraphic.CapButton(cornerOffset,true,capColor);
 			addChild(cap);
 			
 			addEventListener(MouseEvent.CLICK, mv);
@@ -49,86 +47,47 @@ package overlay.SideMenu
 		}
 		
 		// [TOOD] Fix bug where cap can partialy go off-screen if MOVE_SPEED is too big
-		private function onTock(e:Event):void
+		public function onTock(e:Event):void
 		{
 			switch(status)
 			{
 				case 0:
 					break;
 				case 1:
-					if (isExpanded) status = 0;
+					if (IsExpanded()) status = 0;
 					break;
 				case 2:
-					if (isRetracted) status = 0;
+					if (IsRetracted()) status = 0;
 					break;	
 			}
 		}
 		
-		private function onTick(e:Event):void
+		public function onTick(e:Event):void
 		{
 			if (status == 0)
 				return;
 				
-			if (isHorizontal)
-				moveHorizontal(status == 1);
-			else
-				moveVertical(status == 1);			
-			
+			move(status == 1);			
 		}
 		
-		private function moveVertical(isExpanding:Boolean):void
-		{
-			cap.x += (isExpanding ? 1 : -1)*MOVEMENT_RATE;
-			appearance.x += (isExpanding ? 1 : -1)*MOVEMENT_RATE;
-		}
+		public function move(isExpanding:Boolean):void {}
+		public function IsRetracted():Boolean { return true; }
+		public function IsExpanded():Boolean { return !IsRetracted(); }
 		
-		private function moveHorizontal(isExpanding:Boolean=true):void
-		{
-			cap.y += (isExpanding ? 1 : -1)*MOVEMENT_RATE;
-			appearance.y += (isExpanding ? 1 : -1)*MOVEMENT_RATE;
-		}
 		
-		private function get isRetracted():Boolean
+		public function IsCapClicked(clickedButton:int):Boolean
 		{
-			return isHorizontal ? cap.y <= 0 : cap.x <= 0;
-		}
-		
-		private function get isExpanded():Boolean
-		{
-			return isHorizontal ? cap.y >= ButtonHeight(isHorizontal) : cap.x >= ButtonWidth(isHorizontal);
-		}
-	
-		private function isCapClicked(clickedButton:int):Boolean
-		{
-			if (clickedButton != 0)
-				return false;
-
-			if (isRetracted && clickedButton == 0)
-				return true;
+			if (IsRetracted())
+				return clickedButton == 0;
 				
-			if (isHorizontal)
-			{
-				if ((mouseY > ButtonHeight(isHorizontal)) && (mouseY < ButtonHeight(isHorizontal) + CapHeight(isHorizontal)))
-				{
-					return true;
-				}
-			}
-			else
-			{
-				if ((mouseX > ButtonWidth(isHorizontal)) && (mouseX < ButtonWidth(isHorizontal) + CapWidth(isHorizontal)))
-				{
-					return true;
-				}
-			}
-			
 			return false;
 		}
+		
+		public function mv(ev:MouseEvent):void { mvOperation(); }
 				
-		private function mv(ev:MouseEvent):void
+		public function mvOperation(clickedButton:int=0):void
 		{				
-			var clickedButton:int = isHorizontal ? (mouseX - width - inputCornerOffset) / 100 : (mouseY - height - inputCornerOffset) / 100;
-			
-			if (isCapClicked(clickedButton))
+			if (IsCapClicked(clickedButton))
 			{
 				logic.Switch();
 				expandedSwitch();
@@ -140,28 +99,33 @@ package overlay.SideMenu
 		
 		private function expandedSwitch():void
 		{
-			if (isExpanded)
+			if (IsExpanded())
 				status = 2;
-			else if (isRetracted)
+			else if (IsRetracted())
 				status = 1;
 		}
 		
-		public static function ButtonWidth(isHorizontal:Boolean):Number
+		public static function get ButtonSide():Number
+		{
+			return 70;
+		}
+		
+		public static function ButtonWidth(isHorizontal:Boolean=true):Number
 		{
 			return isHorizontal ? 100 : 70;
 		}
 		
-		public static function ButtonHeight(isHorizontal:Boolean):Number
+		public static function ButtonHeight(isHorizontal:Boolean=true):Number
 		{
 			return isHorizontal ? 70 : 100;
 		}
 		
-		public static function CapWidth(isHorizontal:Boolean):Number
+		public static function CapWidth(isHorizontal:Boolean=true):Number
 		{
 			return isHorizontal ? ButtonWidth(isHorizontal) : ButtonWidth(isHorizontal)*0.5;
 		}
 		
-		public static function CapHeight(isHorizontal:Boolean):Number
+		public static function CapHeight(isHorizontal:Boolean=true):Number
 		{
 			return isHorizontal ? ButtonHeight(isHorizontal) * 0.5 : ButtonHeight(isHorizontal);
 		}
