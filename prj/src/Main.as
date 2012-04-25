@@ -36,19 +36,8 @@ package
 			var assets:AssetsManager = new AssetsManager();
 
 			currentLevel = new Level();
-			currentLevel.z+=12;
 			addChild(currentLevel);
-			
-			var man:CloudManager = CloudManager.CloudManagerObject(currentLevel.width, currentLevel.height);
-
-			addChild(man);
-			
-			/*
-			for (var index:int = 0; index < test.numChildren; index++)
-				if (test.getChildAt(index) as Player != null)
-					pl = (test.getChildAt(index) as Player);
-			*/
-			
+						
 			initMenus();
 			addChild(menusAndScreens);
 
@@ -59,7 +48,6 @@ package
 			addChild(sltest2);
 			addChild(sltest);
 			
-//			addEventListener(Event.ENTER_FRAME, onTick);
 			addEventListener(Event.EXIT_FRAME, onTock);
 			addEventListener(SliderEvent.SLIDE, onSlide);
 			addEventListener(MouseEvent.CLICK, onClick);
@@ -71,7 +59,7 @@ package
 		}
 		
 		private function onSlide(slide:SliderEvent):void
-		{
+		{			
 			var slideDisplacement:Number = ExtraMath.TWELVE;
 			
 			switch(slide.direction)
@@ -98,25 +86,7 @@ package
 			graphics.clear();
 			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
 		}
-		
-		/*
-		private function onTick(event:Event):void
-		{
-			for (var index:int = 0; index < test.numChildren; index++)
-			{
-				var child:RampContentClass = test.getChildAt(index) as RampContentClass;
-				
-				if (pl && child)
-				{
-						if (child.hitTestObject(pl))
-						{
-							pl.Collides(child);
-						}
-				}
-			}
-		}
-		*/
-				
+						
 		private function initMenus():void
 		{
 			menusAndScreens = new MenuContainer();

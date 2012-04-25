@@ -26,8 +26,12 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, onStage);
 
 			test = new LevelOBJClass();
-			addChild(test);
+			
+			var man:CloudManager = CloudManager.CloudManagerObject(test.width, test.height);
+			addChild(man);
 
+			addChild(test);
+			
 			addEventListener(Event.ENTER_FRAME, onTick);
 //			addEventListener(Event.EXIT_FRAME, onTock);
 		}
