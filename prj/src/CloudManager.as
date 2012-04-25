@@ -16,6 +16,7 @@ package
 		
 		private var cloudDensity:int;
 		
+		private var sun:Bitmap;
 		private var clouds:Array;
 		
 		//	Constructor
@@ -49,6 +50,12 @@ package
 		//	This is called once the stage is created to initialize the clouds and the clouds array
 		private function onStage(e:Event):void
 		{
+			if (!sun)
+			{
+				sun = SunSelector();
+				addChild(sun);
+			}
+			
 			//	This variable will hold the bitmap
 			var newCloudAppearance:Bitmap = null;
 
@@ -113,6 +120,19 @@ package
 					addChild(newCloud);
 				}				
 			}
+		}
+
+		//	This function selects a sun bitmap and positions it on the level
+		private function SunSelector():Bitmap
+		{
+			var sun:Bitmap = AssetsManager.Sun;
+			
+			sun.x = managerWidth/2 - (ExtraMath.RandomSign() > 0 ? ExtraMath.RandomNumber(managerWidth/4,managerWidth/3) : 0);
+			sun.y = managerHeight/2 - ExtraMath.RandomNumber(managerHeight/4,managerHeight/3);
+			
+			sun.smoothing = true;
+			
+			return sun;			
 		}
 		
 		//	This function selects a cloud bitmap and applies all necesary transformations before passing it on...

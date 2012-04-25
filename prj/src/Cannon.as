@@ -71,25 +71,7 @@ package
 		
 		private function onKey(e:KeyboardEvent):void
 		{
-			if (e.keyCode == 'W'.charCodeAt())
-			{
-				if (collides)
-				{
-					y -= 200;
-					collides = false;
-				}
-			}
-			
-			if (e.keyCode == 'D'.charCodeAt())
-			{
-				x += 10;
-				collides = false;
-			}
-			else if (e.keyCode == 'A'.charCodeAt())
-			{
-				x -= 10;
-				collides = false;
-			}
+
 		}
 				
 		private function onTock(e:Event):void

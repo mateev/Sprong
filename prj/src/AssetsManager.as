@@ -6,7 +6,7 @@ package
 	public class AssetsManager
 	{
 		/*
-		 *	Graphics done in Context Free
+		 *	Cloud graphics done in Context Free
 		 *	http://www.contextfreeart.org
 		 */
 		
@@ -24,6 +24,13 @@ package
 
 		[Embed(source = "../assets/clouds/cloud4.png")]
 		public static var CloudClass4:Class;		
+
+		/*
+		 *  Sun graphic done in Photoshop CS3
+		 */
+		
+		[Embed(source = "../assets/sun.png")]
+		public static var SunClass1:Class;
 		
 		//	This object maps an asset class with a number, indicating how many variants of that asset class there are
 		private static var assetsCount:Object;
@@ -67,6 +74,11 @@ package
 		public static function get Cloud():*
 		{
 			return Asset("CloudClass");
+		}
+		
+		public static function get Sun():*
+		{
+			return Asset("SunClass");
 		}
 	}
 }
