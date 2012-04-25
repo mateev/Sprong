@@ -95,7 +95,7 @@ package
 				trampoline(location);
 		}
 
-		public function trampoline(location:Point)
+		public function trampoline(location:Point):void
 		{
 			if (!pl)
 			{

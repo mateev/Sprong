@@ -14,16 +14,16 @@ package overlay.SideMenu
 			
 		}
 		
-		override public function mv(ev:MouseEvent):void 
+		override public function onClick(ev:MouseEvent=null):void 
 		{
-			mvOperation();
+			clickOperation();
 		}
 		
-		override public function mvOperation(clickedButton:int=0):void 
+		override public function clickOperation(clickedButton:int=0):void 
 		{
 			var clickedButton:int = (mouseY - height - inputCornerOffset) / 100;			
 			
-			super.mvOperation(clickedButton);
+			super.clickOperation(clickedButton);
 		}
 
 		
@@ -49,12 +49,10 @@ package overlay.SideMenu
 		{
 			var superValue:Boolean = super.IsCapClicked(clickedButton);
 			
-			if (superValue == null)
+			if (!superValue)
 			{
 				if ((mouseX > ButtonSide) && (mouseX < ButtonSide + CapHeight))
-				{
 					return true;
-				}
 				
 				return false;
 			}

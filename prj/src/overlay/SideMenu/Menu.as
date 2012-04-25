@@ -41,10 +41,36 @@ package overlay.SideMenu
 			cap = buttonGraphic.CapButton(cornerOffset,true,capColor);
 			addChild(cap);
 			
-			addEventListener(MouseEvent.CLICK, mv);
+			forceClick();
+			
+			addEventListener(MouseEvent.CLICK, onClick);
 			addEventListener(Event.ENTER_FRAME, onTick);
 			addEventListener(Event.EXIT_FRAME, onTock);
 		}
+		
+		public function onClick(ev:MouseEvent=null):void{}
+		
+		public function forceClick():void
+		{
+			logic.Switch();
+			expandedSwitch();
+		}
+		
+		public function clickOperation(clickedButton:int=0):void
+		{				
+			if (IsCapClicked(clickedButton))
+			{
+				forceClick();
+				return;
+			}
+			
+			logic.Click(clickedButton / 100);
+		}
+		
+		public function move(isExpanding:Boolean):void {}
+		public function IsRetracted():Boolean { return true; }
+		public function IsExpanded():Boolean { return !IsRetracted(); }
+		
 		
 		// [TOOD] Fix bug where cap can partialy go off-screen if MOVE_SPEED is too big
 		public function onTock(e:Event):void
@@ -69,33 +95,14 @@ package overlay.SideMenu
 				
 			move(status == 1);			
 		}
-		
-		public function move(isExpanding:Boolean):void {}
-		public function IsRetracted():Boolean { return true; }
-		public function IsExpanded():Boolean { return !IsRetracted(); }
-		
-		
+				
 		public function IsCapClicked(clickedButton:int):Boolean
 		{
 			if (IsRetracted())
 				return clickedButton == 0;
 				
 			return false;
-		}
-		
-		public function mv(ev:MouseEvent):void { mvOperation(); }
-				
-		public function mvOperation(clickedButton:int=0):void
-		{				
-			if (IsCapClicked(clickedButton))
-			{
-				logic.Switch();
-				expandedSwitch();
-				return;
-			}
-			
-			logic.Click(clickedButton / 100);
-		}
+		}						
 		
 		private function expandedSwitch():void
 		{

@@ -14,16 +14,16 @@ package overlay.SideMenu
 			
 		}
 		
-		override public function mv(ev:MouseEvent):void 
+		override public function onClick(ev:MouseEvent=null):void 
 		{
-			mvOperation();
+			clickOperation();
 		}
 		
-		override public function mvOperation(clickedButton:int=0):void 
+		override public function clickOperation(clickedButton:int=0):void 
 		{
 			var clickedButton:int = (mouseX - width - inputCornerOffset) / 100;			
 			
-			super.mvOperation(clickedButton);
+			super.clickOperation(clickedButton);
 		}
 		
 		public override function move(isExpanding:Boolean):void

@@ -72,7 +72,7 @@ package
 			}
 		}
 		
-		private function place(location:Point, type:Class)
+		private function place(location:Point, type:Class):void
 		{
 			var generatedID:int = selectedType == Cannon ? GeneratedCannonID : -1;
 			
