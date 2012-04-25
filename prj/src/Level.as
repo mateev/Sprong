@@ -25,7 +25,7 @@ package
 
 			levelObject = new LevelOBJClass();
 			
-			sky = CloudManager.CloudManagerObject(test.width, test.height);
+			sky = CloudManager.CloudManagerObject(levelObject.width, levelObject.height);
 			addChild(sky);
 
 			addChild(levelObject);
@@ -34,11 +34,20 @@ package
 //			addEventListener(Event.EXIT_FRAME, onTock);
 		}
 		
+		public function HasReachedEdge(location:Point):Boolean
+		{
+			return (!sky.InSky(new Point(-location.x, -location.y)));
+		}
+		
 		private function onTick(event:Event):void
 		{
-			for (var index:int = 0; index < test.numChildren; index++)
+				
+			trace(x, y);
+				
+			
+			for (var index:int = 0; index < levelObject.numChildren; index++)
 			{
-				var child:RampContentClass = test.getChildAt(index) as RampContentClass;
+				var child:RampContentClass = levelObject.getChildAt(index) as RampContentClass;
 				
 				if (pl && child)
 				{

@@ -59,24 +59,33 @@ package
 		}
 		
 		private function onSlide(slide:SliderEvent):void
-		{			
+		{	
+			var levelX:int = currentLevel.x;
+			var levelY:int = currentLevel.y;
+				
 			var slideDisplacement:Number = ExtraMath.TWELVE;
 			
 			switch(slide.direction)
 			{
 				case SliderEvent.UP:
-					currentLevel.y+=slideDisplacement;
+					levelY+=slideDisplacement;
 					break;
 				case SliderEvent.DOWN:
-					currentLevel.y-=slideDisplacement;
+					levelY-=slideDisplacement;
 					break;
 				case SliderEvent.LEFT:
-					currentLevel.x+=slideDisplacement;
+					levelX+=slideDisplacement;
 					break;
 				case SliderEvent.RIGHT:
-					currentLevel.x-=slideDisplacement;
+					levelX-=slideDisplacement;
 					break;
 			}
+			
+			if (currentLevel.HasReachedEdge(new Point(levelX,levelY)))
+				return;
+				
+			currentLevel.x = levelX;
+			currentLevel.y = levelY;
 		}
 		
 		private function onTock(e:Event):void {}

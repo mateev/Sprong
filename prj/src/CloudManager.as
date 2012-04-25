@@ -1,8 +1,11 @@
 package  
 {
 	import flash.display.Bitmap;
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import flash.text.engine.FontDescription;
 	
 	//	Todo: Make some clouds appear mirrored along y-axis
@@ -38,6 +41,11 @@ package
 			addEventListener(Event.ADDED_TO_STAGE, onStage);
 		}
 
+		public function InSky(location:Point):Boolean
+		{
+			return location.x > x && location.x < x + managerWidth && location.y > y && location.y < y + managerHeight;
+		}
+		
 		//	This is called once the stage is created to initialize the clouds and the clouds array
 		private function onStage(e:Event):void
 		{
