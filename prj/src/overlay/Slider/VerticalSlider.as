@@ -25,15 +25,11 @@ package overlay.Slider
 			
 			drawGraphics();
 			
-			trace(x, y);
-			
 			addEventListener(MouseEvent.MOUSE_OVER, onClick);
 		}
 		
 		private function onClick(me:MouseEvent):void
-		{
-			trace("click");
-			
+		{			
 			var clickDirection:String;
 			if (isNearRightPoint(new Point(mouseX, mouseY)))
 				clickDirection = SliderEvent.DOWN;
