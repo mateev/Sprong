@@ -6,13 +6,11 @@ package
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import ramps.RampContentClass;
-	/**
-	 * ...
-	 * @author ivan
-	 */
+
 	public class Level extends Sprite 
 	{
-		private var test:LevelOBJClass;
+		private var sky:CloudManager;
+		private var levelObject:LevelOBJClass;
 		private var pl:Cannon;
 		
 		public function Level() 
@@ -25,12 +23,12 @@ package
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onStage);
 
-			test = new LevelOBJClass();
+			levelObject = new LevelOBJClass();
 			
-			var man:CloudManager = CloudManager.CloudManagerObject(test.width, test.height);
-			addChild(man);
+			sky = CloudManager.CloudManagerObject(test.width, test.height);
+			addChild(sky);
 
-			addChild(test);
+			addChild(levelObject);
 			
 			addEventListener(Event.ENTER_FRAME, onTick);
 //			addEventListener(Event.EXIT_FRAME, onTock);
