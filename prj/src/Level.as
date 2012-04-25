@@ -6,6 +6,7 @@ package
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import placeable.Cannon;
+	import placeable.Placeable;
 	import placeable.Trampoline;
 	import ramps.RampContentClass;
 	import flash.utils.Dictionary;
@@ -15,7 +16,7 @@ package
 		private var sky:CloudManager;
 		private var levelObject:LevelOBJClass;
 
-		private var pl:Cannon;
+		private var pl:Placeable;
 		
 		private var trampolines:Vector.<Trampoline>;
 		
@@ -88,16 +89,30 @@ package
 		
 		public function place(location:Point,id:int=-1):void
 		{
-			cannon(location);
+			if(id>0)
+				cannon(location,id);
+			else
+				trampoline(location);
 		}
 
+		public function trampoline(location:Point)
+		{
+			if (!pl)
+			{
+				pl = new Trampoline();
+				pl.x = mouseX;
+				pl.y = mouseY;
+				
+				addChild(pl);				
+			}
+		}
 		
-		public function cannon(location:Point):void
+		public function cannon(location:Point,id:int):void
 		{
 			if (!pl)
 			{
 				trace(mouseX, mouseY);
-				pl = new Cannon(1);
+				pl = new Cannon(id);
 				pl.x = mouseX;
 				pl.y = mouseY;
 				

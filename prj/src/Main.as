@@ -14,6 +14,7 @@ package
 	import overlay.Slider.HorizontalSlider;
 	import overlay.Slider.VerticalSlider;
 	import overlay.Slider.SliderEvent;
+	import placeable.Cannon;
 	import placeable.Trampoline;
 
 	
@@ -29,7 +30,7 @@ package
 		
 		public function Main():void 
 		{			
-			selectedType = Trampoline;	//	ONLY FOR TESTING PURPOSES! INITIAL VALUE SHOULD BE NULL
+			selectedType = Cannon;	//	ONLY FOR TESTING PURPOSES! INITIAL VALUE SHOULD BE NULL
 			
 			if (stage) init();						
 			else addEventListener(Event.ADDED_TO_STAGE, init);
@@ -49,6 +50,7 @@ package
 			addChild(menusAndScreens);
 
 			showMenus();
+
 			var sltest:HorizontalSlider = new HorizontalSlider();
 			var sltest2:VerticalSlider = new VerticalSlider();
 			
@@ -66,8 +68,15 @@ package
 			
 			if (!isMenuClick && selectedType)
 			{
-				currentLevel.place(new Point(mouseX, mouseY));
+				place(new Point(mouseX, mouseY), selectedType);
 			}
+		}
+		
+		private function place(location:Point, type:Class)
+		{
+			var generatedID:int = selectedType == Cannon ? GeneratedCannonID : -1;
+			
+			currentLevel.place(new Point(mouseX, mouseY),generatedID);			
 		}
 		
 		//	TODO: Too many variables
