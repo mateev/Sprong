@@ -9,6 +9,7 @@ package
 	import overlay.SideMenu.capGraphic;
 	import overlay.Slider.HorizontalSlider;
 	import overlay.Slider.VerticalSlider;
+	import overlay.Slider.SliderEvent;
 	import ramps.RampContentClass;
 	
 	//	SPAGHETTICODE!!!!1111111SHIFT+ELEVEN
@@ -17,7 +18,6 @@ package
 		private var test:LevelOBJClass;
 		private var pl:Player;
 		
-		public static const TWELVE:int = 12;			// Twelve
 		public static var CannonIDs:Array = null;
 		
 		private var menusAndScreens:MenuContainer;
@@ -33,8 +33,6 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 			
-
-
 			var assets:AssetsManager = new AssetsManager();
 			
 			test = new LevelOBJClass();
@@ -60,6 +58,28 @@ package
 			
 			addEventListener(Event.ENTER_FRAME, onTick);
 			addEventListener(Event.EXIT_FRAME, onTock);
+			addEventListener(SliderEvent.SLIDE, onSlide);
+		}
+		
+		private function onSlide(slide:SliderEvent):void
+		{
+			var slideDisplacement:Number = ExtraMath.TWELVE;
+			
+			switch(slide.direction)
+			{
+				case SliderEvent.UP:
+					test.y-=slideDisplacement;
+					break;
+				case SliderEvent.DOWN:
+					test.y+=slideDisplacement;
+					break;
+				case SliderEvent.LEFT:
+					test.x-=slideDisplacement;
+					break;
+				case SliderEvent.RIGHT:
+					test.x+=slideDisplacement;
+					break;
+			}
 		}
 		
 		private function onTock(e:Event):void

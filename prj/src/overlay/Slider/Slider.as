@@ -27,8 +27,6 @@ package overlay.Slider
 			removeEventListener(Event.ADDED_TO_STAGE, onStage);
 			
 			endPoints.push(new Point(stage.stageWidth - xOffsetValue, stage.stageHeight - xOffsetValue));	//	Right point
-			
-
 		}
 		
 		public function get RightEndPoint():Point
@@ -85,9 +83,7 @@ package overlay.Slider
 			graphics.lineStyle(4, 0x000000, 1); 
 			graphics.moveTo(RightEndPoint.x, RightEndPoint.y);
 			graphics.curveTo(controlPoint.x, controlPoint.y, OtherEndPoint.x, OtherEndPoint.y);
-//			graphics.curveTo(thirdPoint.x - ExtraMath.RandomNumber(-100,-115), thirdPoint.y + ExtraMath.RandomNumber(-100,-115), OtherEndPoint.x, OtherEndPoint.y);
 			graphics.endFill();			
-			
 			
 			graphics.beginFill(0x000000);
 			graphics.drawRect(RightEndPoint.x, RightEndPoint.y, 20, 20);
@@ -97,6 +93,18 @@ package overlay.Slider
 			graphics.beginFill(0x000000);
 			graphics.drawRect(OtherEndPoint.x, OtherEndPoint.y, 20, 20);
 			graphics.endFill();
+		}
+		
+		public function fireMovementEvent(eventType:String):void
+		{
+			var movementEvent:SliderEvent = new SliderEvent(SliderEvent.SLIDE,eventType);
+			
+			dispatchEvent(movementEvent);
+		}
+		
+		protected function isNearRightPoint(location:Point):Boolean
+		{
+			return Point.distance(location, RightEndPoint) < Point.distance(location, OtherEndPoint);
 		}
 	}
 

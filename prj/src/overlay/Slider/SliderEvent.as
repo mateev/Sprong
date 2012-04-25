@@ -14,23 +14,21 @@ package overlay.Slider
 		public static const UP:String = "UP_SLIDE";
 		public static const DOWN:String = "DOWN_SLIDE";
 		
-		public function SliderEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false) 
+		public static const SLIDE:String = "Slide";
+		
+		public var direction:String;
+		
+		public function SliderEvent(type:String, inputDirection:String, bubbles:Boolean=true, cancelable:Boolean=false) 
 		{ 
 			super(type, bubbles, cancelable);
 			
-		} 
+			direction = inputDirection;
+		} 		
 		
-		public override function clone():Event 
-		{ 
-			return new SliderEvent(type, bubbles, cancelable);
-		} 
-		
-		public override function toString():String 
-		{ 
-			return formatToString("SliderEvent", "type", "bubbles", "cancelable", "eventPhase"); 
+		override public function clone():flash.events.Event 
+		{
+			return new SliderEvent(type, direction, bubbles, cancelable);
 		}
-		
-		
 	}
 	
 }

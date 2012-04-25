@@ -2,6 +2,7 @@ package
 {
 	public final dynamic class ExtraMath
 	{
+		public static const TWELVE:int = 12;			// Twelve is the 42 of Sprong
 		
 		public function ExtraMath() {}
 		

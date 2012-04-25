@@ -7,7 +7,7 @@ package overlay.SideMenu
 	
 	public class Menu extends Sprite 
 	{
-		public static const MOVEMENT_RATE:int = Main.TWELVE;
+		public static const MOVEMENT_RATE:int = ExtraMath.TWELVE;
 		
 		private var size:int;
 
