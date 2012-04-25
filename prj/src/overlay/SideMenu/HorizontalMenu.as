@@ -16,7 +16,6 @@ package overlay.SideMenu
 		
 		override public function mv(ev:MouseEvent):void 
 		{
-			trace("MV");
 			mvOperation();
 		}
 		
@@ -51,7 +50,7 @@ package overlay.SideMenu
 			
 			if (superValue == false)
 			{
-				if ((mouseY > ButtonSide) && (mouseY < ButtonSide + CapHeight()))
+				if ((mouseY > ButtonSide) && (mouseY < ButtonSide + CapHeight))
 				{
 					return true;
 				}

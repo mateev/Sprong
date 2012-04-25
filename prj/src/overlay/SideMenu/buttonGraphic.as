@@ -32,14 +32,14 @@ package overlay.SideMenu
 		private function drawBackground():void
 		{
 			graphics.beginFill(0x00000);
-			graphics.drawRect(0, 0, Menu.ButtonWidth(isHorizontal), Menu.ButtonHeight(isHorizontal));
+			graphics.drawRect(0, 0, Menu.ButtonSide, Menu.ButtonSide);
 			graphics.endFill();
 		}
 		
 		private function drawForeground(color:uint,margin:Number):void
 		{
 			graphics.beginFill(color);
-			graphics.drawRect(margin, margin, Menu.ButtonWidth(isHorizontal) - 2*margin, Menu.ButtonHeight(isHorizontal) - 2*margin);
+			graphics.drawRect(margin, margin, Menu.ButtonSide - 2*margin, Menu.ButtonSide - 2*margin);
 			graphics.endFill();
 		}
 		
@@ -50,13 +50,13 @@ package overlay.SideMenu
 			if (isHorizontal)
 			{
 				returnValue.scaleY = 0.5;
-				returnValue.y = Menu.ButtonHeight(isHorizontal);
+				returnValue.y = Menu.ButtonSide;
 				returnValue.x = offset;
 			}
 			else
 			{
 				returnValue.scaleX = 0.5;
-				returnValue.x = Menu.ButtonWidth(isHorizontal);
+				returnValue.x = Menu.ButtonSide;
 				returnValue.y = offset;
 			}
 			

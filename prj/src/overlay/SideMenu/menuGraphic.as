@@ -19,7 +19,7 @@ package overlay.SideMenu
 		
 		public function AddButton():void
 		{
-			var newButtonOffset:Number = (isHorizontal ? Menu.ButtonWidth(isHorizontal) : Menu.ButtonHeight(isHorizontal)) * buttons.length;
+			var newButtonOffset:Number = (isHorizontal ? Menu.ButtonSide : Menu.ButtonSide) * buttons.length;
 
 			var newButton:buttonGraphic = buttonGraphic.EmptyButton(newButtonOffset, isHorizontal);
 			

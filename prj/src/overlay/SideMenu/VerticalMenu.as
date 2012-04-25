@@ -1,5 +1,6 @@
 package overlay.SideMenu 
 {
+	import flash.events.MouseEvent;
 	/**
 	 * ...
 	 * @author ivan
@@ -11,6 +12,11 @@ package overlay.SideMenu
 		{
 			super(cornerOffset, capColor);
 			
+		}
+		
+		override public function mv(ev:MouseEvent):void 
+		{
+			mvOperation();
 		}
 		
 		override public function mvOperation(clickedButton:int=0):void 
@@ -45,7 +51,7 @@ package overlay.SideMenu
 			
 			if (superValue == null)
 			{
-				if ((mouseX > ButtonSide) && (mouseX < ButtonSide + CapWidth(false)))
+				if ((mouseX > ButtonSide) && (mouseX < ButtonSide + CapHeight))
 				{
 					return true;
 				}

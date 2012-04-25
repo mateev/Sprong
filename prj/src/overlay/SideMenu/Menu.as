@@ -109,25 +109,10 @@ package overlay.SideMenu
 		{
 			return 70;
 		}
-		
-		public static function ButtonWidth(isHorizontal:Boolean=true):Number
+				
+		public static function get CapHeight():Number
 		{
-			return isHorizontal ? 100 : 70;
-		}
-		
-		public static function ButtonHeight(isHorizontal:Boolean=true):Number
-		{
-			return isHorizontal ? 70 : 100;
-		}
-		
-		public static function CapWidth(isHorizontal:Boolean=true):Number
-		{
-			return isHorizontal ? ButtonWidth(isHorizontal) : ButtonWidth(isHorizontal)*0.5;
-		}
-		
-		public static function CapHeight(isHorizontal:Boolean=true):Number
-		{
-			return isHorizontal ? ButtonHeight(isHorizontal) * 0.5 : ButtonHeight(isHorizontal);
-		}
+			return 0.3*ButtonSide;
+		}		
 	}
 }
