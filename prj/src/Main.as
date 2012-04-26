@@ -16,7 +16,7 @@ package
 	import overlay.Slider.SliderEvent;
 	import placeable.Cannon;
 	import placeable.Trampoline;
-
+	import flash.utils.getQualifiedClassName;
 	
 	//	SPAGHETTICODE!!!!1111111SHIFT+ELEVEN
 	public class Main extends Sprite 
@@ -37,8 +37,8 @@ package
 			isClassSelected = true;
 			
 			availablePlaceables = new Object();
-			availablePlaceables[Cannon] = 1;
-			availablePlaceables[Trampoline] = 10;				
+			availablePlaceables[getQualifiedClassName(Cannon)] = 1;
+			availablePlaceables[getQualifiedClassName(Trampoline)] = 10;				
 			
 			if (stage) init();						
 			else addEventListener(Event.ADDED_TO_STAGE, init);

@@ -60,19 +60,20 @@ package
 		//	If the asset class hasn't been properly implemented yet, an error will be reported and a placeholder will be chosen
 		private static function Asset(assetType:String):*
 		{
+			//	This variable holds the chosen asset
 			var returnedAsset:Class;
 
 			try
-			{
+			{	//	This tries to choose the asset:
 				returnedAsset = Class(getDefinitionByName("AssetsManager_" + assetType + ExtraMath.RandomInteger(1, AssetsManager.AssetsCount(assetType))));
 			}
 			catch (error:ReferenceError)
-			{
+			{	//	If asset choosing has failed, a temporary asset is assigned and a message is traced
 				returnedAsset = AssetErrorClass;
 				trace(error);
 			}
 			finally
-			{
+			{	//	In all cases, the chosen asset is returned
 				return new returnedAsset;
 			}			
 		}
@@ -82,30 +83,38 @@ package
 		{
 			return Asset("CloudClass");
 		}
-		
+
+		//	This returns a Sun bitmap
 		public static function get Sun():*
 		{
 			return Asset("SunClass");
 		}
 		
-		//	Returns a button graphic
+		//	This returns a Button bitmap
 		public static function GetButton(type:Class):*
 		{
 			//	This holds the class' full name
 			var className:String = getQualifiedClassName(type);
 				
+			return AssetsManager.GetButtonFromString(className);
+		}
+
+		//	This returns a Button bitmap, based on the name of a class
+		public static function GetButtonFromString(className:String):*
+		{
 			/*	Since the names of classes that derive are in the form "baseClassName::className", 
 			 *	the following will be used to get the className without the baseClassName	*/
 			var deriveSymbol:RegExp = /(::)/;
 			
-			//	This gets the name, devided according to the deriveSymbol in an array
+			//	This gets the name, divided in an array, according to the deriveSymbol regular expression
 			var newClassName:Array = className.split(deriveSymbol);
 			
-			/*	The last string of the array is the actual class name
-			 * 	this also covers the case where a class doesn't derive from another	*/
-			className = newClassName[newClassName.length - 1];
-						
-			return Asset(className + "ButtonClass");
+			/*	The last string of the array is the actual class name;
+			 * 	Should a class be "grandGrandGrandParentClassName::...::...::baseClassName::className", only the last one will be chosen
+			 * 	Should a class not derive form another class this will work as well, since the newClassName will be of only one element, which is the class name */
+			var derivedClassName:String = newClassName[newClassName.length - 1];
+
+			return Asset(derivedClassName + "ButtonClass");
 		}
 	}
 }

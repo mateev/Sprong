@@ -16,10 +16,11 @@ package overlay.SideMenu.Menu
 		public function VerticalMenu(cornerOffset:Number, capColor:uint,availableStuff:Object) 
 		{
 			super(cornerOffset, capColor);			
-
 			
 			appearance = new VerticalMenuGraphic(cornerOffset);
-			
+
+			for (var type:* in availableStuff)
+				AddButton(AssetsManager.GetButtonFromString(type));			
 		}
 		
 		override public function onStage(ev:Event = null):void 

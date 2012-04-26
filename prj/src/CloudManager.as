@@ -11,6 +11,9 @@ package
 	//	Todo: Make some clouds appear mirrored along y-axis
 	public class CloudManager extends Sprite 
 	{		
+		public static const DAY_SKY_COLOR:uint = 0xA1CAF1;
+		public static const NIGHT_SKY_COLOR:uint = 0x43516f;
+		
 		private var managerWidth:Number;
 		private var managerHeight:Number;
 		
@@ -21,7 +24,7 @@ package
 		
 		//	Constructor
 		//	This constructs a CloudManager object
-		public function CloudManager(levelWidth:Number, levelHeight:Number, skyColor:uint = 0xA1CAF1, density:int = 20) 
+		public function CloudManager(levelWidth:Number, levelHeight:Number, skyColor:uint = DAY_SKY_COLOR, density:int = 20) 
 		{
 			//	The following define the size of empty sky
 			managerWidth = levelWidth * 2;
@@ -80,7 +83,7 @@ package
 
 		//	This controls cloud movement
 		private function onTick(e:Event):void
-		{
+		{			
 			//	The following goes over all clouds and makes them move in a cloudy fashion ...
 			for each (var cloud:Bitmap in clouds)
 			{

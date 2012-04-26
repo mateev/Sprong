@@ -7,6 +7,7 @@ package overlay
 	import overlay.SideMenu.Menu.VerticalMenu;
 	import placeable.Cannon;
 	import placeable.Trampoline;
+
 	
 	public class MenuManager extends Sprite
 	{
@@ -20,9 +21,7 @@ package overlay
 			Reset(availableStuff);
 			
 			addChild(sideMenu);
-			
-			AddSideMenuButton();
-			
+						
 			if (stage) onStage()
 			else	addEventListener(Event.ADDED_TO_STAGE, onStage);
 		}
@@ -39,14 +38,14 @@ package overlay
 		}
 		
 		public function Reset(availableStuff:Object):void
-		{
-			sideMenu = new VerticalMenu(100, Main.GeneratedCannonID,availableStuff);
+		{			
+			sideMenu = new VerticalMenu(100, 0x0000FF,availableStuff);
 			topMenus = new Vector.<HorizontalMenu>();			
 		}
 		
-		public function AddSideMenuButton():void
+		public function AddSideMenuButton(placeableType:Class):void
 		{
-			sideMenu.AddButton(AssetsManager.GetButton(Trampoline));
+			sideMenu.AddButton(AssetsManager.GetButton(placeableType));
 		}
 		
 		public function AddTopButton(id:int=0):void
