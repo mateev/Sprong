@@ -16,6 +16,8 @@ package
 		private var sky:CloudManager;
 		private var levelObject:LevelOBJClass;
 
+		private var placeables:Vector.<Placeable>;
+		
 		private var pl:Placeable;
 		
 		private var trampolines:Vector.<Trampoline>;
@@ -23,6 +25,7 @@ package
 		public function Level() 
 		{
 			trampolines = new Vector.<Trampoline>();
+			placeables = new Vector.<Placeable>();
 			
 			if (stage) onStage();		
 			else addEventListener(Event.ADDED_TO_STAGE, onStage);
@@ -81,10 +84,13 @@ package
 		
 		private function onTick(event:Event):void
 		{
-			var rampCollisionObject:RampContentClass = collideWithRamp(pl);
+			for each(var pl:Placeable in placeables)
+			{				
+				var rampCollisionObject:RampContentClass = collideWithRamp(pl);
 
-			if(rampCollisionObject)
-				pl.Collides(rampCollisionObject);
+				if (rampCollisionObject)
+					pl.Collides(rampCollisionObject);
+			}
 		}
 		
 		public function place(location:Point,id:int=-1):void
@@ -97,27 +103,22 @@ package
 
 		public function trampoline(location:Point):void
 		{
-			if (!pl)
-			{
-				pl = new Trampoline();
-				pl.x = mouseX;
-				pl.y = mouseY;
+			var pl:Trampoline = new Trampoline();
+			pl.x = mouseX;
+			pl.y = mouseY;
 				
-				addChild(pl);				
-			}
+			placeables.push(pl);
+			addChild(pl);				
 		}
 		
 		public function cannon(location:Point,id:int):void
 		{
-			if (!pl)
-			{
-				trace(mouseX, mouseY);
-				pl = new Cannon(id);
-				pl.x = mouseX;
-				pl.y = mouseY;
-				
-				addChild(pl);
-			}
+			var pl:Cannon = new Cannon(id);
+			pl.x = mouseX;
+			pl.y = mouseY;
+			
+			placeables.push(pl);
+			addChild(pl);
 		}
 	}
 

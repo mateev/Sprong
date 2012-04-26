@@ -76,7 +76,10 @@ package
 			
 			if (!isMenuClick && selectedType)
 			{
-				place(new Point(mouseX, mouseY), selectedType);
+				if (isClassSelected)
+				{
+					place(new Point(mouseX, mouseY), selectedType);
+				}
 			}
 		}
 		

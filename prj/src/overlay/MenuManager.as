@@ -10,6 +10,8 @@ package overlay
 	
 	public class MenuManager extends Sprite
 	{
+		public static const MAX_MENUS_COUNT:int = 6;
+		
 		private var topMenus:Vector.<HorizontalMenu>;
 		private var sideMenu:VerticalMenu;
 		
@@ -67,6 +69,9 @@ package overlay
 		
 		public function AddMenu(generatedID:int):void
 		{
+			if (topMenus.length==MAX_MENUS_COUNT)
+				return;
+			
 			var newMenu:HorizontalMenu = new HorizontalMenu(100 + topMenus.length * Menu.ButtonSide, generatedID);
 
 			topMenus.push(newMenu);
