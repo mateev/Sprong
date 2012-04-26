@@ -27,6 +27,9 @@ package
 		// Based on http://www.actionscript.org/forums/showthread.php3?t=178123		
 		public static function RandomInteger(begin:int = int.MIN_VALUE, end:int = int.MAX_VALUE):int
 		{
+			if (begin == end)
+				return begin;
+			
 			//	A few words on XOR Swaps in AS3 - http://jacksondunstan.com/articles/318
 			if (begin > end)
 			{

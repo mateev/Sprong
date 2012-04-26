@@ -8,8 +8,8 @@ package
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.text.engine.ElementFormat;
-	import overlay.MenuContainer;
-	import overlay.SideMenu.buttonGraphic;
+	import overlay.MenuManager;
+	import overlay.SideMenu.menuGraphic.buttonGraphic;
 	import overlay.SideMenu.capGraphic;
 	import overlay.Slider.HorizontalSlider;
 	import overlay.Slider.VerticalSlider;
@@ -24,13 +24,21 @@ package
 		public static var currentLevel:Level;
 		public static var CannonIDs:Array = null;
 		
+		private var availablePlaceables:Object;
+		
+		private var isClassSelected:Boolean;
 		private var selectedType:Class;
 		
-		private var menusAndScreens:MenuContainer;
+		private var menusAndScreens:MenuManager;
 		
 		public function Main():void 
 		{			
 			selectedType = Cannon;	//	ONLY FOR TESTING PURPOSES! INITIAL VALUE SHOULD BE NULL
+			isClassSelected = true;
+			
+			availablePlaceables = new Object();
+			availablePlaceables[Cannon] = 1;
+			availablePlaceables[Trampoline] = 10;				
 			
 			if (stage) init();						
 			else addEventListener(Event.ADDED_TO_STAGE, init);
@@ -76,7 +84,10 @@ package
 		{
 			var generatedID:int = selectedType == Cannon ? GeneratedCannonID : -1;
 			
-			currentLevel.place(new Point(mouseX, mouseY),generatedID);			
+			currentLevel.place(new Point(mouseX, mouseY), generatedID);	
+			
+			if(generatedID>=0)
+				stage.dispatchEvent(new PlaceEvent(PlaceEvent.PLACE_CANNON, generatedID));
 		}
 		
 		//	TODO: Too many variables
@@ -120,7 +131,7 @@ package
 						
 		private function initMenus():void
 		{
-			menusAndScreens = new MenuContainer();
+			menusAndScreens = new MenuManager(availablePlaceables);
 			menusAndScreens.visible = false;
 		}
 		

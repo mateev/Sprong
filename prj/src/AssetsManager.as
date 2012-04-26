@@ -2,6 +2,7 @@ package
 {
 	import flash.display.Bitmap;
 	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
 
 	public class AssetsManager
 	{
@@ -26,8 +27,14 @@ package
 		public static var CloudClass4:Class;		
 
 		/*
-		 *  Sun graphic done in Photoshop CS3
+		 *  The following are done in Photoshop CS3
 		 */
+		
+		[Embed(source = "../assets/cannon_button.png")]
+		public static var CannonButtonClass1:Class;	
+
+		[Embed(source = "../assets/trampoline_button.png")]
+		public static var TrampolineButtonClass1:Class;	
 		
 		[Embed(source = "../assets/sun.png")]
 		public static var SunClass1:Class;
@@ -79,6 +86,26 @@ package
 		public static function get Sun():*
 		{
 			return Asset("SunClass");
+		}
+		
+		//	Returns a button graphic
+		public static function GetButton(type:Class):*
+		{
+			//	This holds the class' full name
+			var className:String = getQualifiedClassName(type);
+				
+			/*	Since the names of classes that derive are in the form "baseClassName::className", 
+			 *	the following will be used to get the className without the baseClassName	*/
+			var deriveSymbol:RegExp = /(::)/;
+			
+			//	This gets the name, devided according to the deriveSymbol in an array
+			var newClassName:Array = className.split(deriveSymbol);
+			
+			/*	The last string of the array is the actual class name
+			 * 	this also covers the case where a class doesn't derive from another	*/
+			className = newClassName[newClassName.length - 1];
+						
+			return Asset(className + "ButtonClass");
 		}
 	}
 }

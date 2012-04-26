@@ -1,14 +1,15 @@
 package overlay.SideMenu
 {
+	import flash.display.Sprite;
 	/**
 	 * ...
 	 * @author ivan
 	 */
-	public class menuLogic 
+	public class menuLogic extends Sprite
 	{
 		private var isHorizontal:Boolean;
 		
-		private var logicContainer:Object;
+		private var logicContainer:Vector.<int>;
 		
 		private var isEnabled:Boolean;
 		
@@ -16,17 +17,9 @@ package overlay.SideMenu
 		{
 			isEnabled = true;
 			isHorizontal = horizontal;
-			logicContainer = new Object();
+			logicContainer = new Vector.<int>();
 		}
-		
-		public function Click2(location:int):void
-		{
-			if (!logicContainer.hasOwnProperty(location))
-				return;
-			
-			trace(logicContainer[location]);
-		}
-		
+				
 		public function Switch():void
 		{
 			isEnabled = !isEnabled;
@@ -37,15 +30,19 @@ package overlay.SideMenu
 			if (!isEnabled || !logicContainer.hasOwnProperty(buttonLocation))
 				return;
 
-			trace(buttonLocation);	
+			
+			var clickEvent:SideButtonEvent = new SideButtonEvent(SideButtonEvent.BUTTON_PRESS, logicContainer[buttonLocation]);
+			
+			if (stage.dispatchEvent(clickEvent))
+				trace("Event dispatched");
 		}
 		
-		public function AddButton(id:int,location:int):void
+		public function AddButton(location:int,functionality:int):void
 		{
 			if (logicContainer.hasOwnProperty(location))
 				throw new Error("Already exists");
 			
-			logicContainer[location] = id;
+			logicContainer[location] = functionality;
 		}
 	}
 
