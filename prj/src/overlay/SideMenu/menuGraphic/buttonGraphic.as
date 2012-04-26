@@ -20,6 +20,9 @@ package overlay.SideMenu.menuGraphic
 		// Used http://www.republicofcode.com/tutorials/flash/as3text/
 		private function updateNumber():void
 		{
+			if (numberRepr)
+				removeChild(numberRepr);
+			
 			var numberFormat:TextFormat = new TextFormat();
 			numberFormat.size = 20;
 			numberFormat.bold = true;
@@ -124,7 +127,12 @@ package overlay.SideMenu.menuGraphic
 				updateNumber();
 			
 			isEmpty = false;
-		}		
+		}
+		
+		public function Replenish():void
+		{
+			number++;
+		}
 	}
 
 }

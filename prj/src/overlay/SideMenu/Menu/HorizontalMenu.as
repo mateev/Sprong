@@ -2,7 +2,9 @@ package overlay.SideMenu.Menu
 {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import overlay.SideMenu.menuGraphic.buttonGraphic;
 	import overlay.SideMenu.menuGraphic.HorizontalMenuGraphic;
+	import overlay.SideMenu.menuLogic;
 
 	public class HorizontalMenu extends Menu 
 	{
@@ -10,6 +12,10 @@ package overlay.SideMenu.Menu
 		public function HorizontalMenu(cornerOffset:Number, capColor:uint) 
 		{
 			super(cornerOffset, capColor);
+						
+			logic = new menuLogic(inputCornerOffset,true);		
+			
+			cap = buttonGraphic.CapButton(inputCornerOffset,true,ID);
 			
 			appearance = new HorizontalMenuGraphic(inputCornerOffset);
 		}

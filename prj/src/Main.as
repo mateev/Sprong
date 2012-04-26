@@ -11,6 +11,7 @@ package
 	import overlay.MenuManager;
 	import overlay.SideMenu.menuGraphic.buttonGraphic;
 	import overlay.SideMenu.capGraphic;
+	import overlay.SideMenu.SideButtonEvent;
 	import overlay.Slider.HorizontalSlider;
 	import overlay.Slider.VerticalSlider;
 	import overlay.Slider.SliderEvent;
@@ -68,6 +69,12 @@ package
 			addEventListener(Event.EXIT_FRAME, onTock);
 			addEventListener(SliderEvent.SLIDE, onSlide);
 			addEventListener(MouseEvent.CLICK, onClick);
+			stage.addEventListener(SideButtonEvent.BUTTON_PRESS, onPress);
+		}
+		
+		public function onPress(e:SideButtonEvent):void
+		{
+			trace(e.PressedID);
 		}
 		
 		private function onClick(me:MouseEvent):void

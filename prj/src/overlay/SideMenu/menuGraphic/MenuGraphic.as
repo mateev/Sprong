@@ -22,6 +22,12 @@ package overlay.SideMenu.menuGraphic
 			buttons[buttonIndex].Click();
 		}
 		
+		public function Replenish(buttonIndex:int):void
+		{
+			//	TODO: Implement replenish logic
+			buttons[buttonIndex].Replenish();
+		}
+		
 		public function AddButton(graphic:Bitmap,number:int=-1):void
 		{
 			if (buttons.length == 1 && buttons[0].isEmpty)

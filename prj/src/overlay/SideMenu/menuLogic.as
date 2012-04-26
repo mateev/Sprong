@@ -14,13 +14,15 @@ package overlay.SideMenu
 		private var isHorizontal:Boolean;
 		
 		private var logicContainer:Dictionary;
+		private var disabledButtons:Vector.<int>;
 		
 		private var isEnabled:Boolean;
 		
 		public function menuLogic(offset:Number, horizontal:Boolean = true)
 		{
 			length = 0;
-			logicContainer = new Dictionary();			
+			logicContainer = new Dictionary();	
+			disabledButtons = new Vector.<int>();
 			isHorizontal = horizontal;
 			isEnabled = true;
 			//logicContainer = new Vector.<int>();
@@ -29,8 +31,7 @@ package overlay.SideMenu
 		
 		public function onFrame(e:Event=null):void
 		{
-			for (var i:String in logicContainer)
-				trace(i);
+			return;
 		}
 		
 		public function Switch():void
@@ -38,9 +39,14 @@ package overlay.SideMenu
 			isEnabled = !isEnabled;
 		}
 		
+		private function isDisabled(buttonLocation:int):Boolean
+		{
+			return disabledButtons.some(function(elem:*, index:*, array:*):Boolean { return elem == buttonLocation; } );
+		}
+		
 		public function Click(buttonLocation:int):Boolean
 		{				
-			if (!isEnabled || (logicContainer[buttonLocation] == undefined))
+			if (!isEnabled || (!logicContainer.hasOwnProperty(buttonLocation)) || isDisabled(buttonLocation))
 				return false;
 				
 			var clickEvent:SideButtonEvent = new SideButtonEvent(SideButtonEvent.BUTTON_PRESS, logicContainer[buttonLocation]);
