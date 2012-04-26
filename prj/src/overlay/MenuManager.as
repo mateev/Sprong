@@ -45,7 +45,7 @@ package overlay
 		
 		public function AddSideMenuButton(placeableType:Class):void
 		{
-			sideMenu.AddButton(AssetsManager.GetButton(placeableType));
+			//sideMenu.AddButton(AssetsManager.GetButton(placeableType));
 		}
 		
 		public function AddTopButton(id:int=0):void
