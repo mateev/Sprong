@@ -39,12 +39,10 @@ package overlay.SideMenu
 		}
 		
 		public function Click(buttonLocation:int):Boolean
-		{			
-			onFrame();
-			
-			if (!isEnabled || !logicContainer.hasOwnProperty(buttonLocation))
+		{				
+			if (!isEnabled || (logicContainer[buttonLocation] == undefined))
 				return false;
-
+				
 			var clickEvent:SideButtonEvent = new SideButtonEvent(SideButtonEvent.BUTTON_PRESS, logicContainer[buttonLocation]);
 						
 			return stage.dispatchEvent(clickEvent);

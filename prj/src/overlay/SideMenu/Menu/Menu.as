@@ -42,9 +42,6 @@ package overlay.SideMenu.Menu
 			status = 0;
 			size = 0;
 			
-			logic = new menuLogic(inputCornerOffset, IsHorizontal);	
-			cap = buttonGraphic.CapButton(inputCornerOffset, IsHorizontal, ID);
-			
 			if (stage) onStage();
 			else addEventListener(Event.ADDED_TO_STAGE, onStage);
 		}

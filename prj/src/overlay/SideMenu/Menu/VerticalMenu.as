@@ -17,18 +17,20 @@ package overlay.SideMenu.Menu
 		{
 			super(cornerOffset, capColor);			
 			
-			appearance = new VerticalMenuGraphic(cornerOffset);
-
+			appearance = new VerticalMenuGraphic(cornerOffset);	
+			
+			logic = new menuLogic(inputCornerOffset,false);		
+			
+			cap = buttonGraphic.CapButton(inputCornerOffset,false,ID);
+			
 			for (var type:* in availableStuff)
 				AddButton(type,availableStuff[type]);			
 		}
 		
 		override public function onStage(ev:Event = null):void 
 		{
-			
-			logic = new menuLogic(inputCornerOffset,false);			
-			
-			cap = buttonGraphic.CapButton(inputCornerOffset,false,ID);
+			removeEventListener(Event.ADDED_TO_STAGE, onStage);			
+
 			addChild(cap);
 
 			super.onStage(ev);
