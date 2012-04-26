@@ -9,16 +9,16 @@ package overlay.SideMenu
 	public class SideButtonEvent extends Event 
 	{
 		public static const BUTTON_PRESS:String = "Pressed side menu button";
-		private var pressedID:int;
+		private var pressedID:*;
 		
-		public function SideButtonEvent(type:String, id:int, bubbles:Boolean=false, cancelable:Boolean=false) 
+		public function SideButtonEvent(type:String, id:*, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{ 
 			super(type, bubbles, cancelable);
 			
 			pressedID = id;
 		} 
 		
-		public function get PressedID():int
+		public function get PressedID():*
 		{
 			return pressedID;
 		}

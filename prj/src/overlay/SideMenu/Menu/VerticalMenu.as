@@ -20,7 +20,7 @@ package overlay.SideMenu.Menu
 			appearance = new VerticalMenuGraphic(cornerOffset);
 
 			for (var type:* in availableStuff)
-				AddButton(AssetsManager.GetButtonFromString(type),availableStuff[type]);			
+				AddButton(type,availableStuff[type]);			
 		}
 		
 		override public function onStage(ev:Event = null):void 

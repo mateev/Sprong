@@ -59,7 +59,7 @@ package overlay.SideMenu.Menu
 			addEventListener(MouseEvent.CLICK, onClick);
 			addEventListener(Event.ENTER_FRAME, onTick);
 			addEventListener(Event.EXIT_FRAME, onTock);
-
+			addChild(logic);
 			forceClick();
 		}
 		
@@ -145,9 +145,12 @@ package overlay.SideMenu.Menu
 			return ID;
 		}
 		
-		public function AddButton(graphic:Bitmap=null,number:int=-1):void
+		public function AddButton(type:String=null,number:int=-1):void
 		{
-			appearance.AddButton(graphic,number);
+			var graphic:Bitmap = AssetsManager.GetButtonFromString(type);
+			
+			appearance.AddButton(graphic, number);
+			logic.AddButton(type);
 		}
 	}
 }

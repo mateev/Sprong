@@ -122,7 +122,8 @@ package overlay.SideMenu.menuGraphic
 			
 			if (HasNumber)
 				updateNumber();
-				
+			
+			isEmpty = false;
 		}		
 	}
 
