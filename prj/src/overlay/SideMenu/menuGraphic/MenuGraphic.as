@@ -9,7 +9,6 @@ package overlay.SideMenu.menuGraphic
 		protected var buttons:Vector.<buttonGraphic>;
 		protected var cornerOffset:Number;
 		
-		
 		public function MenuGraphic(inputCornerOffset:Number = 0)
 		{
 			cornerOffset = inputCornerOffset;
@@ -18,7 +17,12 @@ package overlay.SideMenu.menuGraphic
 	
 		}
 		
-		public function AddButton(graphic:Bitmap):void
+		public function Click(buttonIndex:int):void
+		{
+			buttons[buttonIndex].Click();
+		}
+		
+		public function AddButton(graphic:Bitmap,number:int=-1):void
 		{
 			if (buttons.length == 1 && buttons[0].isEmpty)
 			{

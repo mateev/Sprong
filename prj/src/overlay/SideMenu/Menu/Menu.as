@@ -5,6 +5,7 @@ package overlay.SideMenu.Menu
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
+	import flash.text.TextField;
 	import overlay.SideMenu.menuGraphic.MenuGraphic;
 	import overlay.SideMenu.menuGraphic.buttonGraphic;
 	import overlay.SideMenu.menuLogic;
@@ -28,8 +29,12 @@ package overlay.SideMenu.Menu
 		
 		protected var inputCornerOffset:Number;
 		
+		protected var counterBox:TextField;
+		
 		public function Menu(cornerOffset:Number,capColor:uint) 
 		{
+			counterBox = null;
+			
 			inputCornerOffset = cornerOffset;
 			
 			ID = capColor;
@@ -74,7 +79,10 @@ package overlay.SideMenu.Menu
 				return;
 			}
 			
-			logic.Click(clickedButton / 100);
+			if (logic.Click(clickedButton / 100))
+			{
+				appearance.Click(clickedButton);
+			}
 		}
 		
 		public function move(isExpanding:Boolean):void {}
@@ -137,9 +145,9 @@ package overlay.SideMenu.Menu
 			return ID;
 		}
 		
-		public function AddButton(graphic:Bitmap=null):void
+		public function AddButton(graphic:Bitmap=null,number:int=-1):void
 		{
-			appearance.AddButton(graphic);
+			appearance.AddButton(graphic,number);
 		}
 	}
 }

@@ -25,16 +25,15 @@ package overlay.SideMenu
 			isEnabled = !isEnabled;
 		}
 		
-		public function Click(buttonLocation:int):void
+		public function Click(buttonLocation:int):Boolean
 		{
 			if (!isEnabled || !logicContainer.hasOwnProperty(buttonLocation))
-				return;
+				return false;
 
 			
 			var clickEvent:SideButtonEvent = new SideButtonEvent(SideButtonEvent.BUTTON_PRESS, logicContainer[buttonLocation]);
 			
-			if (stage.dispatchEvent(clickEvent))
-				trace("Event dispatched");
+			return (stage.dispatchEvent(clickEvent))
 		}
 		
 		public function AddButton(location:int,functionality:int):void

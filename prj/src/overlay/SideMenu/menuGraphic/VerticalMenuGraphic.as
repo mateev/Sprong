@@ -19,7 +19,7 @@ package overlay.SideMenu.menuGraphic
 
 		}
 		
-		override public function AddButton(graphic:Bitmap):void 
+		override public function AddButton(graphic:Bitmap,number:int=-1):void 
 		{			
 			super.AddButton(graphic);
 			
@@ -27,7 +27,7 @@ package overlay.SideMenu.menuGraphic
 
 			var newButton:buttonGraphic = new buttonGraphic(newButtonOffset, false);
 			
-			newButton.Update(graphic);
+			newButton.Update(graphic,number);
 				
 			buttons.push(newButton);
 			
