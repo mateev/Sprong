@@ -70,6 +70,11 @@ package overlay.SideMenu.menuGraphic
 			return number>=0;
 		}
 		
+		public function get IsUsable():Boolean
+		{
+			return number > 0;
+		}
+		
 		private function drawBackground():void
 		{
 			graphics.beginFill(0x00000);

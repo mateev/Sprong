@@ -76,6 +76,9 @@ package overlay.SideMenu.Menu
 				return;
 			}
 			
+			if (!appearance.IsUsable(clickedButton))
+				return;
+			
 			if (logic.Click(clickedButton))
 			{
 				appearance.Click(clickedButton);

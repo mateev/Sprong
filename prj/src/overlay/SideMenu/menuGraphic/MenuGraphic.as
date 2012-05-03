@@ -1,6 +1,7 @@
 package overlay.SideMenu.menuGraphic 
 {
 	import flash.display.Bitmap;
+	import flash.display.InteractiveObject;
 	import flash.display.Sprite;
 	import overlay.SideMenu.menuGraphic.buttonGraphic;
 	
@@ -15,6 +16,11 @@ package overlay.SideMenu.menuGraphic
 			
 			buttons = new Vector.<buttonGraphic>();
 	
+		}
+		
+		public function IsUsable(buttonIndex:int):Boolean
+		{
+			return buttons[buttonIndex].IsUsable;
 		}
 		
 		public function Click(buttonIndex:int):void

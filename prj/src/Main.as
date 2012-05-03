@@ -36,7 +36,6 @@ package
 		public function Main():void 
 		{			
 			selectedType = null;//Cannon;	//	ONLY FOR TESTING PURPOSES! INITIAL VALUE SHOULD BE NULL
-			isClassSelected = true;
 			
 			availablePlaceables = new Object();
 			availablePlaceables[getQualifiedClassName(Cannon)] = 1;
@@ -97,7 +96,7 @@ package
 			
 			if (!isMenuClick && selectedType)
 			{
-				if (isClassSelected)
+				if (selectedType)
 				{
 					place(new Point(mouseX, mouseY), selectedType);
 					selectedType = null;
@@ -106,7 +105,7 @@ package
 		}
 		
 		private function place(location:Point, type:Class):void
-		{
+		{			
 			var generatedID:int = selectedType == Cannon ? GeneratedCannonID : -1;
 			
 			currentLevel.place(new Point(mouseX, mouseY), generatedID);	
