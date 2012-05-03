@@ -16,6 +16,7 @@ package
 	import overlay.Slider.VerticalSlider;
 	import overlay.Slider.SliderEvent;
 	import placeable.Cannon;
+	import placeable.Placeable;
 	import placeable.Trampoline;
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.getDefinitionByName;
@@ -92,22 +93,50 @@ package
 			menusAndScreens.unselect(type);
 		}
 		
+		//	TODO: Move this somewhere else
+		//	This function returns the index of an element in an array if that element satisfies a predicate and -1 if no such exist
+		private function getElementIndexFromArray(array:Array, predicate:Function):int
+		{
+			if (array.length == 0)
+				return -1;
+				
+			for (var index:int = 0; index < array.length; index++)
+				if (predicate(array[index]))
+					return index;
+					
+			return -1;		
+		}
+		
 		private function onClick(me:MouseEvent):void
 		{
 			//	This returns an array of all the things under the pointer
 			var clickTargets:Array = stage.getObjectsUnderPoint(new Point(mouseX, mouseY));
 			
+			trace(clickTargets);
+			
 			//	This checks if one of the targets is a menu
 			var isMenuClick:Boolean = clickTargets.some(function(elem:*, index:*, array:*):Boolean { return elem is buttonGraphic; }) ;
 			
-			if (!isMenuClick && selectedType)
+			//	If user didn't click a menu ....
+			if (!isMenuClick)
 			{
-				//Quite useless if imo...
-				//if (selectedType)
-				//{
+				//	This tries to determine if something from the level has been selected and returns the index in the clickTargets array
+				var selectedLevelObjectIndex:int = getElementIndexFromArray(clickTargets, function(elem:*):Boolean { return elem is Placeable; });
+
+				//	If a valid index has been returned, something has been selected
+				if (selectedLevelObjectIndex>=0)
+				{
+//					selectedThing = 
+					trace(clickTargets[selectedLevelObjectIndex]);
+					return;
+				}
+				
+				//	Note to self: [Not as useless anymore, it seems...]
+				if (selectedType)
+				{
 					place(new Point(mouseX, mouseY), selectedType);
 					selectedType = null;
-				//}
+				}
 			}
 		}
 		
