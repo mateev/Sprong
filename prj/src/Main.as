@@ -108,7 +108,7 @@ package
 		}
 		
 		private function onClick(me:MouseEvent):void
-		{
+		{			
 			//	This returns an array of all the things under the pointer
 			var clickTargets:Array = stage.getObjectsUnderPoint(new Point(mouseX, mouseY));
 			
@@ -126,8 +126,7 @@ package
 				//	If a valid index has been returned, something has been selected
 				if (selectedLevelObjectIndex>=0)
 				{
-//					selectedThing = 
-					trace(clickTargets[selectedLevelObjectIndex]);
+					selectedThing = clickTargets[selectedLevelObjectIndex];
 					return;
 				}
 				
@@ -136,6 +135,7 @@ package
 				{
 					place(new Point(mouseX, mouseY), selectedType);
 					selectedType = null;
+					selectedThing = null;	// A menu selection cancels an object selection!
 				}
 			}
 		}
