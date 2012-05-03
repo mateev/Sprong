@@ -7,6 +7,8 @@ package placeable
 	
 	public class Placeable extends MovieClip 
 	{
+		public static const MAX_FACING:Number = 50;
+		protected var facing:Number;
 		public var collides:Boolean;
 		protected var offset:Number;
 		
@@ -16,8 +18,10 @@ package placeable
 		{
 			super();
 			
-			ID = inputID == -1 ? -ExtraMath.RandomInteger(1) : inputID;
+			facing = MAX_FACING;
 			
+			ID = inputID == -1 ? Main.GeneratedTrampolineID : inputID;
+						
 			collides = false;			
 
 			if (stage)	onStage();
@@ -65,7 +69,7 @@ package placeable
 		
 		public function get Center():Point
 		{
-			return new Point(x, y);
+			return new Point(x+this.width/2, y+this.height/2);
 		}
 	}
 

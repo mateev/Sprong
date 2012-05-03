@@ -26,12 +26,14 @@ package
 	{		
 		public static var currentLevel:Level;
 		public static var CannonIDs:Array = null;
+		public static var TrampolineIDs:Array = null;
 		
 		private var availablePlaceables:Object;
 		
 		private var isClassSelected:Boolean;
 		private var selectedType:Class;				//	This handles menu selection from left menu
 		private var selectedThing:Object;			//	This handles level object selection
+		private var activeSelectionBox:SelectionBox;//	This handles the level object selection box
 		
 		private var menusAndScreens:MenuManager;
 		
@@ -39,7 +41,8 @@ package
 		{			
 			selectedType = null;
 			selectedThing = null;
-			
+			activeSelectionBox = new SelectionBox(0, 0);
+						
 			availablePlaceables = new Object();
 			availablePlaceables[getQualifiedClassName(Cannon)] = 1;
 			availablePlaceables[getQualifiedClassName(Trampoline)] = 10;				
@@ -73,6 +76,8 @@ package
 			addEventListener(SliderEvent.SLIDE, onSlide);
 			addEventListener(MouseEvent.CLICK, onClick);
 			stage.addEventListener(SideButtonEvent.BUTTON_PRESS, onPress);
+			
+			addChild(activeSelectionBox);
 		}
 		
 		public function onPress(e:SideButtonEvent):void
@@ -111,9 +116,7 @@ package
 		{			
 			//	This returns an array of all the things under the pointer
 			var clickTargets:Array = stage.getObjectsUnderPoint(new Point(mouseX, mouseY));
-			
-			trace(clickTargets);
-			
+						
 			//	This checks if one of the targets is a menu
 			var isMenuClick:Boolean = clickTargets.some(function(elem:*, index:*, array:*):Boolean { return elem is buttonGraphic; }) ;
 			
@@ -126,7 +129,8 @@ package
 				//	If a valid index has been returned, something has been selected
 				if (selectedLevelObjectIndex>=0)
 				{
-					selectedThing = clickTargets[selectedLevelObjectIndex];
+					selectedThing = (clickTargets[selectedLevelObjectIndex] as Placeable);
+					activeSelectionBox.activate(currentLevel.localToGlobal(selectedThing.Center),selectedThing.GetID(),selectedThing.width);
 					return;
 				}
 				
@@ -136,7 +140,13 @@ package
 					place(new Point(mouseX, mouseY), selectedType);
 					selectedType = null;
 					selectedThing = null;	// A menu selection cancels an object selection!
+					
+					activeSelectionBox.deactivate();
 				}
+			}
+			else
+			{
+				activeSelectionBox.deactivate();
 			}
 		}
 		
@@ -155,27 +165,37 @@ package
 		{	
 			var levelX:int = currentLevel.x;
 			var levelY:int = currentLevel.y;
+			
+			var activeSelectionX:Number = activeSelectionBox.x;
+			var activeSelectionY:Number = activeSelectionBox.y;
 				
 			var slideDisplacement:Number = ExtraMath.TWELVE;
 			
 			switch(slide.direction)
 			{
 				case SliderEvent.UP:
-					levelY+=slideDisplacement;
+					levelY += slideDisplacement;
+					activeSelectionY += slideDisplacement;
 					break;
 				case SliderEvent.DOWN:
 					levelY-=slideDisplacement;
+					activeSelectionY -= slideDisplacement;
 					break;
 				case SliderEvent.LEFT:
-					levelX+=slideDisplacement;
+					levelX += slideDisplacement;
+					activeSelectionX += slideDisplacement;
 					break;
 				case SliderEvent.RIGHT:
 					levelX-=slideDisplacement;
+					activeSelectionX -= slideDisplacement;
 					break;
 			}
 			
 			if (currentLevel.HasReachedEdge(new Point(levelX,levelY)))
 				return;
+				
+			activeSelectionBox.x = activeSelectionX;
+			activeSelectionBox.y = activeSelectionY;
 				
 			currentLevel.x = levelX;
 			currentLevel.y = levelY;
@@ -208,16 +228,42 @@ package
 			
 			if(CannonIDs == null)
 				CannonIDs = new Array();
-			
+				
 			do
 			{
 				generatedID = int("0x" + ExtraMath.RandomColorComponent().toString(16) + ExtraMath.RandomColorComponent().toString(16) + ExtraMath.RandomColorComponent().toString(16));
 			}
-			while (CannonIDs.some(function(id:uint, index:int, MenuIDs:*):Boolean { return id == generatedID; } ));
+			while (IsExistingID(generatedID));
 			
 			CannonIDs.push(generatedID);
 			
 			return generatedID;
+		}
+		
+		public static function get GeneratedTrampolineID():int
+		{
+			var generatedID:int;
+			
+			if (TrampolineIDs == null)
+				TrampolineIDs = new Array();
+				
+			do
+			{
+				generatedID = int("0x0000"+ ExtraMath.RandomColorComponent(255/2).toString(16));
+			}
+			while (IsExistingID(generatedID));
+			
+			TrampolineIDs.push(generatedID);
+			
+			return generatedID;
+			
+		}
+		
+		//	Todo: Explain how this works, lol
+		public static function IsExistingID(generatedID:int):Boolean
+		{
+			return (TrampolineIDs == null ? false : TrampolineIDs.some(function(id:uint, index:int, MenuIDs:*):Boolean { return id == generatedID; } )) &&
+					(CannonIDs == null ? false : CannonIDs.some(function(id:uint, index:int, MenuIDs:*):Boolean { return id == generatedID; } ));			
 		}
 
 

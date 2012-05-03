@@ -17,7 +17,7 @@ package placeable
 		{	
 			super.onStage(e);
 			
-			graphics.beginFill(0x0000FF);
+			graphics.beginFill(ID);
 			graphics.drawRect(0, 0, 50, 50);
 			graphics.endFill();			
 		}
