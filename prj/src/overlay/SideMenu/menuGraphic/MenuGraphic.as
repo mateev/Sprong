@@ -20,11 +20,11 @@ package overlay.SideMenu.menuGraphic
 		public function Click(buttonIndex:int):void
 		{
 			buttons[buttonIndex].Click();
-		}
+		}	
 		
 		public function Replenish(buttonIndex:int):void
 		{
-			//	TODO: Implement replenish logic
+
 			buttons[buttonIndex].Replenish();
 		}
 		

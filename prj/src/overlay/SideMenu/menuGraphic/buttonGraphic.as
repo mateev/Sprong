@@ -132,6 +132,8 @@ package overlay.SideMenu.menuGraphic
 		public function Replenish():void
 		{
 			number++;
+			
+			updateNumber();
 		}
 	}
 

@@ -26,6 +26,11 @@ package overlay
 			else	addEventListener(Event.ADDED_TO_STAGE, onStage);
 		}
 		
+		public function unselect(type:Class):void
+		{
+			sideMenu.unselect(type);
+		}
+		
 		private function onStage(ev:Event=null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onStage);

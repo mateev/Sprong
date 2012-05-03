@@ -27,6 +27,12 @@ package overlay.SideMenu.Menu
 				AddButton(type,availableStuff[type]);			
 		}
 		
+		public function unselect(type:Class):void
+		{
+			var typeLocation:int = logic.unselect(type);
+			appearance.Replenish(typeLocation);
+		}
+		
 		override public function onStage(ev:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onStage);			

@@ -3,6 +3,7 @@ package overlay.SideMenu
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.utils.Dictionary;
+	import flash.utils.getQualifiedClassName;
 	/**
 	 * ...
 	 * @author ivan
@@ -52,6 +53,19 @@ package overlay.SideMenu
 			var clickEvent:SideButtonEvent = new SideButtonEvent(SideButtonEvent.BUTTON_PRESS, logicContainer[buttonLocation]);
 						
 			return stage.dispatchEvent(clickEvent);
+		}
+		
+		public function unselect(type:Class):int
+		{			
+			var typeAsString:String = getQualifiedClassName(type);
+			
+			for (var index:int = 0; index < length; index++)
+			{
+				if (logicContainer[index] == typeAsString)
+					return index;
+			}
+			
+			throw new Error("Invalid unselect for element type " + typeAsString);
 		}
 		
 		public function AddButton(functionality:String):void

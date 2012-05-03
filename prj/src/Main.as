@@ -75,10 +75,20 @@ package
 		
 		public function onPress(e:SideButtonEvent):void
 		{
-			if(!selectedType)	//	If nothing is selected
-				selectedType = (getDefinitionByName(e.PressedID) as Class);
-			else
-				trace("sth is already selected");
+			//	If something is selected
+			if (selectedType)
+			{
+				// It will get unselected
+				unselect(selectedType);
+				trace("unselected");
+			}
+				
+			selectedType = (getDefinitionByName(e.PressedID) as Class);
+		}
+		
+		private function unselect(type:Class):void
+		{
+			menusAndScreens.unselect(type);
 		}
 		
 		private function onClick(me:MouseEvent):void
@@ -90,6 +100,7 @@ package
 				if (isClassSelected)
 				{
 					place(new Point(mouseX, mouseY), selectedType);
+					selectedType = null;
 				}
 			}
 		}
