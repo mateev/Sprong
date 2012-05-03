@@ -90,6 +90,25 @@ package
 			return Asset("SunClass");
 		}
 		
+		//	This returns the name of a class, stripped from any inheritance information
+		public static function GetStrippedClassNameFromString(className:String):String
+		{
+			/*	Since the names of classes that derive are in the form "baseClassName::className", 
+			 *	the following will be used to get the className without the baseClassName	*/
+			var deriveSymbol:RegExp = /(::)/;			
+
+			
+			//	This gets the name, divided in an array, according to the deriveSymbol regular expression
+			var newClassName:Array = className.split(deriveSymbol);
+			
+			/*	The last string of the array is the actual class name;
+			 * 	Should a class be "grandGrandGrandParentClassName::...::...::baseClassName::className", only the last one will be chosen
+			 * 	Should a class not derive form another class this will work as well, since the newClassName will be of only one element, which is the class name */
+			var derivedClassName:String = newClassName[newClassName.length - 1];
+			
+			return derivedClassName;
+		}
+		
 		//	This returns a Button bitmap
 		public static function GetButton(type:Class):*
 		{
@@ -102,19 +121,7 @@ package
 		//	This returns a Button bitmap, based on the name of a class
 		public static function GetButtonFromString(className:String):*
 		{
-			/*	Since the names of classes that derive are in the form "baseClassName::className", 
-			 *	the following will be used to get the className without the baseClassName	*/
-			var deriveSymbol:RegExp = /(::)/;
-			
-			//	This gets the name, divided in an array, according to the deriveSymbol regular expression
-			var newClassName:Array = className.split(deriveSymbol);
-			
-			/*	The last string of the array is the actual class name;
-			 * 	Should a class be "grandGrandGrandParentClassName::...::...::baseClassName::className", only the last one will be chosen
-			 * 	Should a class not derive form another class this will work as well, since the newClassName will be of only one element, which is the class name */
-			var derivedClassName:String = newClassName[newClassName.length - 1];
-
-			return Asset(derivedClassName + "ButtonClass");
+			return Asset(GetStrippedClassNameFromString(className) + "ButtonClass");
 		}
 		
 	}

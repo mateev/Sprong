@@ -76,7 +76,7 @@ package overlay.SideMenu.Menu
 				return;
 			}
 			
-			if (logic.Click(clickedButton / 100))
+			if (logic.Click(clickedButton))
 			{
 				appearance.Click(clickedButton);
 			}

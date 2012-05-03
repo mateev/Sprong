@@ -18,6 +18,7 @@ package
 	import placeable.Cannon;
 	import placeable.Trampoline;
 	import flash.utils.getQualifiedClassName;
+	import flash.utils.getDefinitionByName;
 	
 	//	SPAGHETTICODE!!!!1111111SHIFT+ELEVEN
 	public class Main extends Sprite 
@@ -34,7 +35,7 @@ package
 		
 		public function Main():void 
 		{			
-			selectedType = Cannon;	//	ONLY FOR TESTING PURPOSES! INITIAL VALUE SHOULD BE NULL
+			selectedType = null;//Cannon;	//	ONLY FOR TESTING PURPOSES! INITIAL VALUE SHOULD BE NULL
 			isClassSelected = true;
 			
 			availablePlaceables = new Object();
@@ -74,7 +75,10 @@ package
 		
 		public function onPress(e:SideButtonEvent):void
 		{
-			trace(e.PressedID);
+			if(!selectedType)	//	If nothing is selected
+				selectedType = (getDefinitionByName(e.PressedID) as Class);
+			else
+				trace("sth is already selected");
 		}
 		
 		private function onClick(me:MouseEvent):void

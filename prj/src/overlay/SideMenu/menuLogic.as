@@ -25,7 +25,6 @@ package overlay.SideMenu
 			disabledButtons = new Vector.<int>();
 			isHorizontal = horizontal;
 			isEnabled = true;
-			//logicContainer = new Vector.<int>();
 			addEventListener(Event.ENTER_FRAME, onFrame);
 		}
 		
@@ -46,6 +45,7 @@ package overlay.SideMenu
 		
 		public function Click(buttonLocation:int):Boolean
 		{				
+			trace(buttonLocation);
 			if (!isEnabled || (!logicContainer.hasOwnProperty(buttonLocation)) || isDisabled(buttonLocation))
 				return false;
 				
