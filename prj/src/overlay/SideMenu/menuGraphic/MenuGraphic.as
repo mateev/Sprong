@@ -20,6 +20,7 @@ package overlay.SideMenu.menuGraphic
 		
 		public function IsUsable(buttonIndex:int):Boolean
 		{
+			// 	UNKNOWN BUG HERE
 			return buttons[buttonIndex].IsUsable;
 		}
 		

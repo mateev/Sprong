@@ -20,6 +20,7 @@ package
 	import placeable.Trampoline;
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.getDefinitionByName;
+	import selectionBox.SelectionBox;
 	
 	//	SPAGHETTICODE!!!!1111111SHIFT+ELEVEN
 	public class Main extends Sprite 
@@ -41,7 +42,7 @@ package
 		{			
 			selectedType = null;
 			selectedThing = null;
-			activeSelectionBox = new SelectionBox(0, 0);
+			activeSelectionBox = new SelectionBox();
 						
 			availablePlaceables = new Object();
 			availablePlaceables[getQualifiedClassName(Cannon)] = 1;
@@ -130,6 +131,7 @@ package
 				if (selectedLevelObjectIndex>=0)
 				{
 					selectedThing = (clickTargets[selectedLevelObjectIndex] as Placeable);
+					activeSelectionBox.deactivate();
 					activeSelectionBox.activate(currentLevel.localToGlobal(selectedThing.Center),selectedThing.GetID(),selectedThing.width);
 					return;
 				}
