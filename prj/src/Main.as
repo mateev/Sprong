@@ -29,13 +29,15 @@ package
 		private var availablePlaceables:Object;
 		
 		private var isClassSelected:Boolean;
-		private var selectedType:Class;
+		private var selectedType:Class;				//	This handles menu selection from left menu
+		private var selectedThing:Object;			//	This handles level object selection
 		
 		private var menusAndScreens:MenuManager;
 		
 		public function Main():void 
 		{			
-			selectedType = null;//Cannon;	//	ONLY FOR TESTING PURPOSES! INITIAL VALUE SHOULD BE NULL
+			selectedType = null;
+			selectedThing = null;
 			
 			availablePlaceables = new Object();
 			availablePlaceables[getQualifiedClassName(Cannon)] = 1;
@@ -92,15 +94,20 @@ package
 		
 		private function onClick(me:MouseEvent):void
 		{
-			var isMenuClick:Boolean = stage.getObjectsUnderPoint(new Point(mouseX, mouseY)).some(function(elem:*, index:*, array:*):Boolean { return elem is buttonGraphic; } );
+			//	This returns an array of all the things under the pointer
+			var clickTargets:Array = stage.getObjectsUnderPoint(new Point(mouseX, mouseY));
+			
+			//	This checks if one of the targets is a menu
+			var isMenuClick:Boolean = clickTargets.some(function(elem:*, index:*, array:*):Boolean { return elem is buttonGraphic; }) ;
 			
 			if (!isMenuClick && selectedType)
 			{
-				if (selectedType)
-				{
+				//Quite useless if imo...
+				//if (selectedType)
+				//{
 					place(new Point(mouseX, mouseY), selectedType);
 					selectedType = null;
-				}
+				//}
 			}
 		}
 		
