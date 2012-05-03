@@ -126,11 +126,12 @@ package selectionBox
 					case 2:
 						trace("remove");
 						buttonEvent = new SelectionBoxEvent(id, SelectionBoxEvent.REMOVE);
+						stage.dispatchEvent(buttonEvent);
 						break;
 					default:
 						throw Error("Invalid selection box menu button id " + clickedButton.toString());
 						
-					stage.dispatchEvent(buttonEvent);
+
 				}
 				
 				return;

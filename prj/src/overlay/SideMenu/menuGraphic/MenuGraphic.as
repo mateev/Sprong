@@ -20,8 +20,26 @@ package overlay.SideMenu.menuGraphic
 		
 		public function IsUsable(buttonIndex:int):Boolean
 		{
-			// 	UNKNOWN BUG HERE
-			return buttons[buttonIndex].IsUsable;
+			var isButtonUsable:Boolean;
+
+			try
+			{
+				isButtonUsable = buttons[buttonIndex].IsUsable;
+			}
+			catch (rangeError:RangeError)
+			{
+				/* 
+				 * There was an odd bug about index being out of range here;
+				 * This happened rarely when the user clicked on the *EXACT* edge of the menu, which is 1 pixel wide;
+				 */
+
+				//	TODO: Not sure how to handle this, so I'll just leave it like this for now
+				isButtonUsable = ExtraMath.RandomSign() < 0;
+			}
+			finally
+			{
+				return isButtonUsable;
+			}
 		}
 		
 		public function Click(buttonIndex:int):void
