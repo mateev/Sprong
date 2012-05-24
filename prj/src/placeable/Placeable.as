@@ -18,7 +18,7 @@ package placeable
 		{
 			super();
 			
-			facing = MAX_FACING;
+			facing = Math.PI/4;
 			
 			ID = inputID == -1 ? Main.GeneratedTrampolineID : inputID;
 						
@@ -27,6 +27,16 @@ package placeable
 			if (stage)	onStage();
 			else	addEventListener(Event.ADDED_TO_STAGE, onStage);
 			addEventListener(Event.ENTER_FRAME, onTick);
+		}
+		
+		public function changeFacing(value:Number):void
+		{
+			facing = value;
+		}
+		
+		public function get Facing():Number
+		{
+			return facing;
 		}
 		
 		public function onKey(ke:KeyboardEvent):void

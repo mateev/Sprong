@@ -21,6 +21,7 @@ package
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.getDefinitionByName;
 	import selectionBox.SelectionBox;
+	import selectionBox.SelectionBoxEvent;
 	
 	//	SPAGHETTICODE!!!!1111111SHIFT+ELEVEN
 	public class Main extends Sprite 
@@ -77,8 +78,31 @@ package
 			addEventListener(SliderEvent.SLIDE, onSlide);
 			addEventListener(MouseEvent.CLICK, onClick);
 			stage.addEventListener(SideButtonEvent.BUTTON_PRESS, onPress);
+
+			stage.addEventListener(SelectionBoxEvent.REMOVE, onClickRemove);
+			stage.addEventListener(SelectionBoxEvent.ROTATE, onClickRotate);
+			stage.addEventListener(SelectionBoxEvent.MOVE, onClickLaunch);
 			
 			addChild(activeSelectionBox);
+		}
+		
+		private function onClickLaunch(e:SelectionBoxEvent):void
+		{
+			currentLevel.launch(e.id,e.value as Point);
+		}
+		
+		private function onClickRotate(e:SelectionBoxEvent):void
+		{
+			currentLevel.RotateObject(e.id, e.value as Number);
+		}
+		
+		private function onClickRemove(e:SelectionBoxEvent):void
+		{
+			var id:int = e.id;
+			
+			selectNothing();
+			
+			unselect(currentLevel.remove(id));
 		}
 		
 		public function onPress(e:SideButtonEvent):void
@@ -140,10 +164,7 @@ package
 				if (selectedType)
 				{
 					place(new Point(mouseX, mouseY), selectedType);
-					selectedType = null;
-					selectedThing = null;	// A menu selection cancels an object selection!
-					
-					activeSelectionBox.deactivate();
+					selectNothing();
 				}
 			}
 			else
@@ -152,9 +173,21 @@ package
 			}
 		}
 		
-		private function place(location:Point, type:Class):void
-		{			
-			var generatedID:int = selectedType == Cannon ? GeneratedCannonID : -1;
+		private function selectNothing():void
+		{
+			selectedType = null;
+			selectedThing = null;	// A menu selection cancels an object selection!
+					
+			activeSelectionBox.deactivate();
+		}
+		
+		private function place(location:Point, type:Class, customID:int=-1):void
+		{	
+			var generatedID:int;//
+			if (customID >= 0)
+				generatedID = customID;
+			else
+				generatedID = selectedType == Cannon ? GeneratedCannonID : -1;
 			
 			currentLevel.place(new Point(mouseX, mouseY), generatedID);	
 			

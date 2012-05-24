@@ -77,6 +77,12 @@ package
 				return new returnedAsset;
 			}			
 		}
+
+		//	This returns a Puppy bitmap		
+		public static function get Puppy():*
+		{
+			return Asset("Puppy");
+		}
 		
 		//	This returns a Cloud bitmap
 		public static function get Cloud():*

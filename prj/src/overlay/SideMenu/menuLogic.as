@@ -10,7 +10,7 @@ package overlay.SideMenu
 	 */
 	public class menuLogic extends Sprite
 	{
-		private var length;
+		private var length:int;
 		
 		private var isHorizontal:Boolean;
 		

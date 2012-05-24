@@ -34,6 +34,7 @@ package selectionBox
 		private var menuLocation:Point;
 		private var menuWidth:Number;
 		
+		
 		private function getClickedMenuButton(mouseLocation:Point):int
 		{
 			return int(Point.distance(mouseLocation, menuLocation) / menuButtonWidth);
@@ -74,13 +75,14 @@ package selectionBox
 				
 			if (isMovement)
 			{
-				if (clickedButton != 0)
-					stage.dispatchEvent(buttonEvent);
+				if (clickedButton == 0)
+					trace(buttonEvent.value);
+					//stage.dispatchEvent(buttonEvent);
 				
 				isMovement = false;
 				drawGFX();				
 
-				return;				
+				return;	
 			}
 			
 			if (isRotation)
@@ -101,6 +103,9 @@ package selectionBox
 				graphics.moveTo(0, 0);
 				graphics.lineTo(mouseX, mouseY);
 				
+				buttonEvent.value = (new Point(mouseX, mouseY).normalize(1) as Object);
+								
+				
 				return;
 			}
 	
@@ -116,12 +121,14 @@ package selectionBox
 						isMovement = true;
 						drawGFX(2);
 						buttonEvent = new SelectionBoxEvent(id, SelectionBoxEvent.MOVE);
+						buttonEvent.value = new Point(x, y);
 						return;
 					case 1:
 						trace("rotate");
 						isRotation = true;
 						drawGFX(0);
 						buttonEvent = new SelectionBoxEvent(id, SelectionBoxEvent.ROTATE);
+						buttonEvent.value = new Point(1, 1);
 						return;
 					case 2:
 						trace("remove");
